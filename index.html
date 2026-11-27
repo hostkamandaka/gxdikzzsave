@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#a78bfa">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Downloader by Gx Dikzz</title>
+
+<script>
+(function(){
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function apply(){ document.documentElement.setAttribute("data-bs-theme", mq.matches ? "dark" : "light"); }
+  apply();
+  if(mq.addEventListener) mq.addEventListener("change", apply);
+})();
+</script>
+
+<script>
+/* Antrean Bagikan: native Android boleh manggil window.gxReceiveShare(teks) kapan aja, bahkan sebelum halaman siap */
+window.__gxShareQueue = [];
+window.gxReceiveShare = function(t){ window.__gxShareQueue.push(String(t == null ? "" : t)); };
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root, [data-bs-theme="light"]{
+  --nb-ink:    #000;
+  --nb-line:   #000;
+  --nb-paper:  #efeaff;
+  --nb-card:   #ffffff;
+  --nb-soft:   #f6f2ff;
+  --nb-focus:  #fff6bf;
+  --nb-dot:    rgba(0,0,0,.13);
+  --nb-yellow: #ffe14d;
+  --nb-cyan:   #3fe0f5;
+  --nb-pink:   #ff7ab8;
+  --nb-violet: #a78bfa;
+  --nb-lime:   #b6f24a;
+  --nb-red:    #ff5a5f;
+
+  --gx-accent: var(--nb-ink);
+  --gx-safe-top:    env(safe-area-inset-top, 0px);
+  --gx-safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  --bs-font-sans-serif: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --bs-body-bg: var(--nb-card);            --bs-body-bg-rgb: 255,255,255;
+  --bs-tertiary-bg: var(--nb-paper);       --bs-tertiary-bg-rgb: 239,234,255;
+  --bs-secondary-bg: var(--nb-soft);       --bs-secondary-bg-rgb: 246,242,255;
+  --bs-body-color: #000;                   --bs-body-color-rgb: 0,0,0;
+  --bs-secondary-color: rgba(0,0,0,.72);
+  --bs-border-color: #000;
+  --bs-border-width: 3px;
+  --bs-border-radius: 0;     --bs-border-radius-sm: 0;  --bs-border-radius-lg: 0;
+  --bs-border-radius-xl: 0;  --bs-border-radius-xxl: 0; --bs-border-radius-2xl: 0;
+  --bs-border-radius-pill: 0;
+  --bs-link-color: #1d4ed8;  --bs-link-color-rgb: 29,78,216;
+  --bs-link-hover-color: #1e3a8a; --bs-link-hover-color-rgb: 30,58,138;
+}
+[data-bs-theme="dark"]{
+  --nb-ink:    #f5f2ff;
+  --nb-paper:  #14121c;
+  --nb-card:   #211e2d;
+  --nb-soft:   #2b2739;
+  --nb-focus:  #36314d;
+  --nb-dot:    rgba(255,255,255,.09);
+
+  --bs-body-bg: var(--nb-card);            --bs-body-bg-rgb: 33,30,45;
+  --bs-tertiary-bg: var(--nb-paper);       --bs-tertiary-bg-rgb: 20,18,28;
+  --bs-secondary-bg: var(--nb-soft);       --bs-secondary-bg-rgb: 43,39,57;
+  --bs-body-color: #f5f2ff;                --bs-body-color-rgb: 245,242,255;
+  --bs-secondary-color: rgba(245,242,255,.75);
+  --bs-border-color: #f5f2ff;
+  --bs-link-color: #7dd3fc;  --bs-link-color-rgb: 125,211,252;
+  --bs-link-hover-color: #bae6fd; --bs-link-hover-color-rgb: 186,230,253;
+}
+
+html, body{ min-height:100%; touch-action:pan-x pan-y; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{
+  -webkit-tap-highlight-color:transparent; overflow-x:hidden;
+  background-image:radial-gradient(var(--nb-dot) 1.5px, transparent 1.6px);
+  background-size:20px 20px;
+  font-weight:500;
+}
+::selection{ background:var(--nb-pink); color:#000; }
+
+.app-bar{
+  padding-top:var(--gx-safe-top);
+  background:var(--nb-violet) !important; color:#000;
+  border-bottom:3px solid var(--nb-line) !important;
+}
+.brand-mark{
+  width:42px; height:42px; border-radius:0; flex-shrink:0;
+  display:grid; place-items:center;
+  font-weight:800; font-size:.95rem; letter-spacing:.5px; color:#000;
+  background:var(--nb-yellow);
+  border:3px solid #000; box-shadow:3px 3px 0 #000;
+  transform:rotate(-4deg);
+}
+.brand-name{ font-weight:800; font-size:1.2rem; letter-spacing:.04em; line-height:1.05; }
+.brand-sub{ font-size:.62rem; letter-spacing:.18em; font-weight:700; color:#000; }
+.status-dot{
+  width:1rem; height:1rem; border-radius:0; display:inline-block;
+  background:#22c55e; border:3px solid #000; box-shadow:2px 2px 0 #000;
+  transition:background .2s;
+}
+.status-dot.offline{ background:var(--nb-red); box-shadow:2px 2px 0 #000; }
+
+.app-main{
+  max-width:720px;
+  padding-top:1.5rem;
+  padding-bottom:calc(7rem + var(--gx-safe-bottom));
+}
+.page{ display:none; }
+.page.active{ display:block; animation:pageIn .18s ease; }
+@keyframes pageIn{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){ .page.active{ animation:none; } .btn, .result-card{ transition:none !important; } }
+
+.page > header > h1{
+  display:inline-block; margin-bottom:.9rem !important;
+  padding:.2rem .8rem; font-size:1.65rem; font-weight:800; letter-spacing:-.01em; line-height:1.2;
+  background:var(--nb-yellow); color:#000;
+  border:3px solid #000; box-shadow:4px 4px 0 var(--nb-ink);
+  transform:rotate(-1.2deg);
+}
+.page > header > p{ font-weight:500; max-width:46ch; }
+
+.btn{
+  --bs-btn-border-width:3px; --bs-btn-border-radius:0;
+  --bs-btn-color:#000; --bs-btn-hover-color:#000; --bs-btn-active-color:#000; --bs-btn-disabled-color:#000;
+  --bs-btn-border-color:var(--nb-ink); --bs-btn-hover-border-color:var(--nb-ink);
+  --bs-btn-active-border-color:var(--nb-ink); --bs-btn-disabled-border-color:var(--nb-ink);
+  --bs-btn-disabled-opacity:.6;
+  --bs-btn-active-shadow:0 0 0 var(--nb-ink);
+  --bs-btn-focus-box-shadow:3px 3px 0 var(--nb-ink);
+  font-weight:700; letter-spacing:.01em;
+  box-shadow:3px 3px 0 var(--nb-ink);
+  transition:transform .08s ease, box-shadow .08s ease, background-color .08s ease;
+}
+.btn:focus-visible{ outline:3px dashed var(--nb-ink); outline-offset:3px; }
+@media (hover:hover){
+  .btn:not(:disabled):hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--nb-ink); }
+}
+.btn:not(:disabled):active{ transform:translate(3px,3px); box-shadow:0 0 0 var(--nb-ink); }
+.btn:disabled, .btn.disabled{ box-shadow:none; transform:translate(3px,3px); }
+
+.btn-gx{
+  --bs-btn-bg:var(--nb-yellow); --bs-btn-hover-bg:#ffd91a; --bs-btn-active-bg:#ffc800; --bs-btn-disabled-bg:var(--nb-yellow);
+  --bs-btn-border-color:#000; --bs-btn-hover-border-color:#000; --bs-btn-active-border-color:#000; --bs-btn-disabled-border-color:#000;
+  background-image:none;
+}
+.btn-outline-primary{
+  --bs-btn-bg:var(--nb-cyan); --bs-btn-hover-bg:#79ecfb; --bs-btn-active-bg:#1fcce3; --bs-btn-disabled-bg:var(--nb-cyan);
+  --bs-btn-border-color:#000; --bs-btn-hover-border-color:#000; --bs-btn-active-border-color:#000; --bs-btn-disabled-border-color:#000;
+}
+.btn[data-format="MP4"]{
+  --bs-btn-bg:var(--nb-pink); --bs-btn-hover-bg:#ff9dcb; --bs-btn-active-bg:#ff5aa6; --bs-btn-disabled-bg:var(--nb-pink);
+}
+.btn-format{ padding-top:1rem; padding-bottom:1rem; }
+.btn-format small{ opacity:1 !important; font-weight:600; }
+.btn-outline-secondary{
+  --bs-btn-color:var(--nb-ink); --bs-btn-bg:var(--nb-card);
+  --bs-btn-hover-color:#000; --bs-btn-hover-bg:var(--nb-yellow);
+  --bs-btn-active-color:#000; --bs-btn-active-bg:#ffd91a;
+  --bs-btn-disabled-color:var(--nb-ink); --bs-btn-disabled-bg:var(--nb-card);
+}
+.btn-outline-danger{
+  --bs-btn-bg:var(--nb-red); --bs-btn-hover-bg:#ff7d81; --bs-btn-active-bg:#ff3b41; --bs-btn-disabled-bg:var(--nb-red);
+  --bs-btn-border-color:#000; --bs-btn-hover-border-color:#000; --bs-btn-active-border-color:#000; --bs-btn-disabled-border-color:#000;
+}
+.btn-close, .btn-close-white{
+  filter:none !important; opacity:1;
+  background-color:var(--nb-red); border:3px solid #000; border-radius:0;
+  box-shadow:2px 2px 0 var(--nb-ink); padding:.55rem; box-sizing:content-box; background-size:.8em;
+}
+.btn-close:hover{ opacity:1; }
+
+.input-group{ box-shadow:4px 4px 0 var(--nb-ink); transition:box-shadow .1s; }
+.input-group:focus-within{ box-shadow:4px 4px 0 var(--nb-pink); }
+.input-group > .form-control, .input-group > .btn{ padding-top:.75rem; padding-bottom:.75rem; border-radius:0 !important; }
+.input-group > .btn{ box-shadow:none !important; transform:none !important; }
+.form-control{ border:3px solid var(--nb-ink); font-weight:600; }
+.form-control::placeholder{ font-weight:500; }
+.form-control:focus{ background-color:var(--nb-focus); border-color:var(--nb-ink); box-shadow:none; }
+.form-check-input{ width:1.5em; height:1.5em; border:3px solid var(--nb-ink); background-color:var(--nb-card); }
+.form-check-input:checked{ background-color:var(--nb-pink); border-color:var(--nb-ink); }
+.form-check-input:focus{ border-color:var(--nb-ink); box-shadow:3px 3px 0 var(--nb-ink); }
+.form-text{ font-weight:600; }
+
+.progress{
+  --bs-progress-bar-bg:var(--nb-cyan); --bs-progress-bg:var(--nb-card);
+  --bs-progress-height:1.15rem; --bs-progress-border-radius:0;
+  border:3px solid var(--nb-ink);
+}
+.progress-bar{ color:#000; }
+.progress-bar.bg-success{ background-color:var(--nb-lime) !important; }
+.progress-bar.bg-danger{ background-color:var(--nb-red) !important; }
+.js-ptext{ font-weight:600; }
+
+.badge{ --bs-badge-border-radius:0; border:2px solid var(--nb-ink); font-weight:700; letter-spacing:.02em; padding:.35em .6em; }
+.badge-gx{ background-color:var(--nb-pink); background-image:none; color:#000; border-color:#000; }
+.badge.text-body-secondary{ color:var(--nb-ink) !important; }
+.badge.bg-info-subtle{ background-color:var(--nb-cyan) !important; color:#000 !important; border-color:#000; }
+.text-accent{ color:var(--nb-ink) !important; }
+
+.card{ --bs-card-bg:var(--nb-card); --bs-card-border-radius:0; --bs-card-inner-border-radius:0; --bs-card-border-width:3px; }
+.result-card, .preview-card, .hist-card{
+  overflow:hidden;
+  border:3px solid var(--nb-ink) !important;
+  box-shadow:6px 6px 0 var(--nb-ink) !important;
+  transition:transform .1s ease, box-shadow .1s ease;
+}
+.hist-card{ box-shadow:4px 4px 0 var(--nb-ink) !important; }
+.card.shadow-sm.rounded-4{ border:3px solid var(--nb-ink) !important; box-shadow:6px 6px 0 var(--nb-ink) !important; }
+@media (hover:hover){
+  .result-card:hover{ transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--nb-ink) !important; }
+}
+.card.gx-playing{ box-shadow:6px 6px 0 var(--nb-pink) !important; }
+.card > .ratio{ border-bottom:3px solid var(--nb-ink); }
+#resultArea .row{ --bs-gutter-x:1.25rem; --bs-gutter-y:1.6rem; }
+.result-card h3{ font-weight:800 !important; line-height:1.25; }
+
+.thumb-inner{ background:var(--bs-secondary-bg); overflow:hidden; }
+.thumb-inner img{ width:100%; height:100%; object-fit:cover; display:block; }
+.thumb-fallback{
+  position:absolute; inset:0; display:grid; place-items:center;
+  font-size:1.9rem; color:var(--nb-ink); opacity:.55;
+}
+.thumb-play{
+  position:absolute; inset:0; width:100%; height:100%; display:none; place-items:center;
+  border:0; padding:0; color:#000; font-size:1.7rem;
+  background:rgba(0,0,0,.14); cursor:pointer;
+}
+.thumb-play .bi{
+  width:3.4rem; height:3.4rem; display:grid; place-items:center; line-height:1;
+  background:var(--nb-yellow); border:3px solid #000; box-shadow:4px 4px 0 #000;
+  transition:transform .08s ease, box-shadow .08s ease;
+}
+.thumb-play:active .bi{ transform:translate(3px,3px); box-shadow:1px 1px 0 #000; }
+.thumb-play:focus-visible{ outline:3px dashed #fff; outline-offset:-8px; }
+.thumb-inner.is-playable .thumb-play{ display:grid; }
+.thumb-duration{
+  position:absolute; right:.5rem; bottom:.5rem; font-weight:700; font-size:.72rem;
+  background:#000 !important; color:#fff !important; border:2px solid #fff; padding:.25rem .45rem;
+}
+.hist-thumb{ width:104px; flex-shrink:0; border:3px solid var(--nb-ink); }
+.hist-thumb .thumb-play .bi{ width:2rem; height:2rem; font-size:1rem; border-width:2px; box-shadow:2px 2px 0 #000; }
+.hist-thumb .thumb-fallback{ font-size:1.3rem; }
+
+.line-clamp-2{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+
+.js-playing-tag.text-accent{
+  display:inline-block; padding:.15rem .55rem;
+  background:var(--nb-lime); color:#000 !important;
+  border:2px solid #000; box-shadow:2px 2px 0 var(--nb-ink);
+}
+
+.player-block audio{ width:100%; display:block; border:3px solid var(--nb-ink); border-radius:0; }
+.player-block video{ width:100%; max-height:240px; border:3px solid var(--nb-ink); border-radius:0; background:#000; display:block; }
+.yt-embed{ border:3px solid var(--nb-ink); background:#000; box-shadow:4px 4px 0 var(--nb-ink); }
+.yt-embed iframe{ border:0; }
+.result-card .player-block:not(.d-none){ margin-bottom:.35rem; }
+
+#resultArea > .text-center, #historyList > .text-center{
+  border:3px dashed var(--nb-ink); background:var(--nb-card);
+}
+.page h2.h6{
+  color:var(--nb-ink) !important; font-weight:800 !important; font-size:1.05rem;
+  padding-bottom:.45rem; border-bottom:3px solid var(--nb-ink); margin-bottom:1rem !important;
+}
+
+.bottom-nav{
+  padding-bottom:var(--gx-safe-bottom); z-index:1030;
+  background:var(--nb-card) !important;
+  border-top:3px solid var(--nb-ink) !important;
+}
+.bottom-nav .nav{ padding-bottom:.6rem; }
+.bottom-nav .nav-link{
+  display:flex; flex-direction:column; align-items:center; gap:.15rem;
+  padding:.45rem 0; border:3px solid transparent; background:none; border-radius:0;
+  font-size:.74rem; font-weight:700; color:var(--nb-ink);
+  transition:transform .08s ease, box-shadow .08s ease, background-color .08s ease;
+}
+.bottom-nav .nav-link:hover, .bottom-nav .nav-link:focus{ color:var(--nb-ink); }
+.bottom-nav .nav-link:focus-visible{ outline:3px dashed var(--nb-ink); outline-offset:2px; }
+.bottom-nav .nav-link i{ font-size:1.35rem; line-height:1; }
+.bottom-nav .nav-link.active, .bottom-nav .nav-link.active:hover, .bottom-nav .nav-link.active:focus{
+  background:var(--nb-yellow); color:#000; border-color:#000; box-shadow:3px 3px 0 var(--nb-ink);
+}
+.bottom-nav .nav-link:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--nb-ink); }
+
+.list-group{
+  --bs-list-group-bg:transparent; --bs-list-group-color:var(--nb-ink);
+  --bs-list-group-border-color:var(--nb-ink); --bs-list-group-border-radius:0;
+  --bs-list-group-action-color:var(--nb-ink); --bs-list-group-action-hover-color:#000;
+  --bs-list-group-action-hover-bg:var(--nb-yellow);
+  --bs-list-group-action-active-color:#000; --bs-list-group-action-active-bg:#ffd91a;
+}
+.list-group-item-action:hover .text-body-secondary{ color:#000 !important; }
+.list-group-item:has(input:checked){ background:var(--nb-yellow); color:#000; }
+.list-group-item{ font-weight:600; }
+.opt-icon{
+  width:42px; height:42px; border-radius:0; flex-shrink:0;
+  display:grid; place-items:center; font-size:1.15rem;
+  background:var(--nb-cyan); color:#000;
+  border:3px solid #000; box-shadow:3px 3px 0 var(--nb-ink);
+}
+.list-group > :nth-child(2) .opt-icon{ background:var(--nb-pink); }
+.list-group > :nth-child(3) .opt-icon{ background:var(--nb-lime); }
+
+.modal{
+  --bs-modal-bg:var(--nb-card); --bs-modal-border-width:3px; --bs-modal-border-color:var(--nb-ink);
+  --bs-modal-border-radius:0; --bs-modal-inner-border-radius:0;
+}
+.modal-content{ box-shadow:8px 8px 0 var(--nb-ink); }
+.modal-title{ font-weight:800; }
+.modal a.fw-semibold{
+  display:inline-block; padding:.1rem .5rem; color:#000;
+  background:var(--nb-yellow); border:2px solid #000;
+}
+
+.btn-contact{
+  display:flex; align-items:center; justify-content:center; gap:.65rem;
+  padding-top:.8rem; padding-bottom:.8rem; font-size:1.05rem; text-decoration:none;
+}
+.btn-contact .bi{ font-size:1.5rem; line-height:1; }
+.btn-contact .ct-logo{ width:1.6rem; height:1.6rem; flex-shrink:0; }
+.btn-wa{ --bs-btn-bg:#25d366; --bs-btn-hover-bg:#4ee07f; --bs-btn-active-bg:#1ebe5a; --bs-btn-disabled-bg:#25d366; }
+.btn-saweria{ --bs-btn-bg:#faa533; --bs-btn-hover-bg:#ffb955; --bs-btn-active-bg:#e8921a; --bs-btn-disabled-bg:#faa533; }
+
+.toast-wrap{
+  bottom:calc(6.25rem + var(--gx-safe-bottom));
+  width:min(92vw, 420px); z-index:1090;
+}
+#appToast{
+  --bs-toast-border-radius:0;
+  background:var(--nb-lime) !important; color:#000 !important;
+  border:3px solid #000 !important; box-shadow:4px 4px 0 var(--nb-ink);
+  font-weight:600;
+}
+
+#gxSplash{
+  position:fixed; inset:0; z-index:2000;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:calc(1.5rem + var(--gx-safe-top)) 1.25rem calc(1.5rem + var(--gx-safe-bottom));
+  background-color:var(--nb-violet);
+  background-image:radial-gradient(rgba(0,0,0,.18) 1.5px, transparent 1.6px);
+  background-size:20px 20px;
+  color:#000; overflow:hidden;
+  animation:splashOut .5s ease 3s forwards;
+}
+@keyframes splashOut{ to{ opacity:0; visibility:hidden; pointer-events:none; } }
+.sp-card{
+  position:relative; width:min(100%, 440px); text-align:center;
+  padding:2.25rem 1.5rem 1.5rem;
+  background:var(--nb-card); color:var(--bs-body-color);
+  border:3px solid #000; box-shadow:10px 10px 0 #000;
+  animation:spCardIn .55s cubic-bezier(.2,1.2,.4,1) both;
+}
+@keyframes spCardIn{ from{ opacity:0; transform:translateY(28px) rotate(1.5deg); } to{ opacity:1; transform:none; } }
+.sp-badge{
+  position:absolute; top:-1.1rem; left:50%;
+  padding:.2rem .9rem; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+  background:var(--nb-pink); color:#000; border:3px solid #000; box-shadow:3px 3px 0 #000;
+  transform:translateX(-50%) rotate(-3deg); white-space:nowrap;
+}
+.sp-logo{
+  width:84px; height:84px; margin:.4rem auto 1.1rem;
+  display:grid; place-items:center;
+  font-size:2rem; font-weight:800; letter-spacing:.5px; color:#000;
+  background:var(--nb-yellow); border:3px solid #000; box-shadow:6px 6px 0 #000;
+  transform:rotate(-5deg);
+  animation:spLogo 1.6s ease-in-out .6s infinite alternate;
+}
+@keyframes spLogo{ from{ transform:rotate(-5deg) translateY(0); } to{ transform:rotate(3deg) translateY(-6px); } }
+.sp-logo img{ display:none; width:100%; height:100%; object-fit:cover; }
+.sp-logo.has-img{ background:var(--nb-card); overflow:hidden; }
+.sp-logo.has-img img{ display:block; }
+.sp-logo.has-img span{ display:none; }
+.sp-hello{ margin:0 0 .35rem; font-size:1rem; font-weight:700; color:var(--bs-secondary-color); }
+.sp-title{ margin:0; font-size:clamp(1.55rem, 7vw, 2rem); font-weight:800; line-height:1.15; letter-spacing:-.01em; }
+.sp-title span{
+  display:inline-block; margin-top:.35rem; padding:.05rem .6rem;
+  background:var(--nb-cyan); color:#000; border:3px solid #000; box-shadow:4px 4px 0 #000;
+  transform:rotate(-1.5deg);
+}
+.sp-desc{ margin:1.1rem 0 0; font-size:1rem; font-weight:500; line-height:1.5; color:var(--bs-secondary-color); }
+.sp-chips{ display:flex; justify-content:center; gap:.65rem; margin-top:1.1rem; flex-wrap:wrap; }
+.sp-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.35rem .8rem; font-size:.9rem; font-weight:800; color:#000;
+  border:3px solid #000; box-shadow:3px 3px 0 #000;
+}
+.sp-chip.yt{ background:var(--nb-red); transform:rotate(-2deg); }
+.sp-chip.tt{ background:var(--nb-lime); transform:rotate(2deg); }
+.sp-bar{
+  height:18px; margin-top:1.6rem; padding:2px;
+  background:var(--nb-soft); border:3px solid #000;
+}
+.sp-bar > i{
+  display:block; height:100%; width:0;
+  background:repeating-linear-gradient(45deg, var(--nb-yellow) 0 10px, #ffd91a 10px 20px);
+  border-right:3px solid #000;
+  animation:spFill 2.8s cubic-bezier(.4,0,.2,1) .1s forwards;
+}
+@keyframes spFill{ to{ width:100%; } }
+.sp-load{ margin:.6rem 0 0; font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--bs-secondary-color); }
+.sp-wm{
+  margin-top:1.4rem; padding:.45rem 1rem;
+  font-size:.85rem; font-weight:800; letter-spacing:.08em; color:#000;
+  background:var(--nb-yellow); border:3px solid #000; box-shadow:4px 4px 0 #000;
+  animation:spCardIn .55s cubic-bezier(.2,1.2,.4,1) .25s both;
+}
+@media (prefers-reduced-motion: reduce){
+  .sp-card, .sp-wm, .sp-logo{ animation:none; }
+}
+</style>
+</head>
+<body class="bg-body-tertiary">
+
+<div id="gxSplash" role="dialog" aria-modal="true" aria-label="Selamat datang">
+  <div class="sp-card">
+    <span class="sp-badge">Welcome</span>
+    <div class="sp-logo" id="spLogo"><img id="spLogoImg" alt="" src="logo.png" onload="this.parentNode.classList.add('has-img')" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='logo.jpg'}else{this.remove()}"><span>GX</span></div>
+    <p class="sp-hello">Selamat datang di aplikasi</p>
+    <h1 class="sp-title">Downloader<br><span>by Gx Dikzz</span></h1>
+    <p class="sp-desc">Bisa download YouTube dan TikTok, cepat, mudah, dan gratis.</p>
+    <div class="sp-chips">
+      <span class="sp-chip yt"><i class="bi bi-youtube"></i>YouTube</span>
+      <span class="sp-chip tt"><i class="bi bi-tiktok"></i>TikTok</span>
+    </div>
+    <div class="sp-bar" aria-hidden="true"><i></i></div>
+    <p class="sp-load">Menyiapkan aplikasi...</p>
+  </div>
+  <div class="sp-wm">&copy; Gx Dikzz</div>
+</div>
+<script>
+(function(){
+  var el = document.getElementById("gxSplash"), root = document.documentElement;
+  if(!el) return;
+  root.style.overflow = "hidden";
+  var box = document.getElementById("spLogo"), img = document.getElementById("spLogoImg");
+  if(box && img && img.complete && img.naturalWidth > 0) box.classList.add("has-img");
+  setTimeout(function(){
+    root.style.overflow = "";
+    if(el.parentNode) el.parentNode.removeChild(el);
+  }, 3600);
+})();
+</script>
+
+
+<header class="app-bar navbar sticky-top bg-body border-bottom">
+  <div class="container-fluid px-3 justify-content-between">
+    <div class="d-flex align-items-center gap-2">
+      <span class="brand-mark">GX</span>
+      <div class="d-flex flex-column">
+        <span class="brand-name">DIKZZ</span>
+        <span class="brand-sub">DOWNLOADER</span>
+      </div>
+    </div>
+    <span class="status-dot" id="statusDot" role="img" aria-label="Online" title="Online"></span>
+  </div>
+</header>
+
+<main class="app-main container px-3">
+
+  <section class="page active" id="page-beranda">
+    <header class="mb-3">
+      <h1 class="h4 fw-bold mb-1" data-i18n="home_title">Cari video</h1>
+      <p class="small text-body-secondary mb-0" data-i18n="home_desc">Ketik judul, artis, atau tempel kata kunci buat cari di YouTube.</p>
+    </header>
+
+    <form class="input-group mb-4" id="searchForm" role="search">
+      <input type="search" id="searchInput" maxlength="150" class="form-control" data-i18n-ph="search_placeholder"
+             placeholder="Cari di YouTube..." autocomplete="off" enterkeyhint="search">
+      <button type="submit" class="btn btn-gx px-3" data-i18n-aria="aria_search" aria-label="Cari">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+
+    <div id="resultArea" aria-live="polite"></div>
+  </section>
+
+  <section class="page" id="page-download">
+    <header class="mb-3">
+      <h1 class="h4 fw-bold mb-1" data-i18n="dl_title">Tempel link</h1>
+      <p class="small text-body-secondary mb-0" data-i18n="dl_desc">Link YouTube atau TikTok, tempel di bawah ini.</p>
+    </header>
+
+    <div class="input-group mb-2">
+      <input type="text" id="linkInput" maxlength="2048" class="form-control" data-i18n-ph="link_placeholder"
+             placeholder="Tempel link YouTube / TikTok..." inputmode="url" autocomplete="off"
+             autocapitalize="none" spellcheck="false">
+      <button class="btn btn-outline-secondary" id="pasteBtn" type="button">
+        <i class="bi bi-clipboard me-1"></i><span data-i18n="paste_btn">Tempel</span>
+      </button>
+    </div>
+    <div id="linkStatus" class="form-text mb-3" role="status"></div>
+
+    <div id="previewCard" class="card preview-card border-0 shadow-sm mb-4 d-none">
+      <div class="ratio ratio-16x9">
+        <div class="thumb-inner js-thumb" id="previewThumbBox">
+          <img class="d-none" alt="" referrerpolicy="no-referrer">
+          <div class="thumb-fallback"><i class="bi bi-play-btn"></i></div>
+          <button type="button" class="thumb-play" data-i18n-aria="aria_play" aria-label="Putar">
+            <i class="bi bi-play-fill js-play-icon"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="badge badge-gx mb-2" id="previewSource">YOUTUBE</span>
+        <h2 class="h6 fw-semibold line-clamp-2 mb-1" id="previewTitle"></h2>
+        <p class="small text-body-secondary mb-0" id="previewCaption"></p>
+        <div class="small fw-semibold text-accent mt-2 js-playing-tag d-none">
+          <i class="bi bi-soundwave me-1"></i><span data-i18n="playing_tag">Sedang diputar</span>
+        </div>
+
+        <div class="player-block mt-3 d-none" id="previewPlayerBlock"></div>
+
+        <div class="row g-2 mt-3 d-none" id="formatChoice">
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-primary btn-format w-100 py-3" data-format="MP3">
+              <i class="bi bi-music-note-beamed fs-4 d-block"></i>
+              <span class="fw-bold">MP3</span>
+              <small class="d-block opacity-75" data-i18n="fmt_mp3_note">Audio saja</small>
+            </button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-primary btn-format w-100 py-3" data-format="MP4">
+              <i class="bi bi-film fs-4 d-block"></i>
+              <span class="fw-bold">MP4</span>
+              <small class="d-block opacity-75" data-i18n="fmt_mp4_note">Video + audio</small>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-gx w-100 py-3 mt-3 d-none" id="tiktokDownloadBtn">
+          <i class="bi bi-download me-2"></i><span data-i18n="tiktok_btn">Download video</span>
+        </button>
+
+        <div class="progress-area mt-3 d-none" id="previewProgress">
+          <div class="progress" role="progressbar" aria-label="Progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated js-bar" style="width:100%"></div>
+          </div>
+          <div class="small text-body-secondary mt-1 js-ptext"></div>
+          <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2 js-cancel d-none"><i class="bi bi-x-circle me-1"></i><span data-i18n="btn_cancel_dl">Batalkan download</span></button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h6 fw-bold text-body-secondary mb-2">
+      <i class="bi bi-folder2-open me-1"></i><span data-i18n="history_title">File tersimpan</span>
+    </h2>
+    <div class="d-flex flex-column gap-2" id="historyList"></div>
+  </section>
+
+  <section class="page" id="page-opsi">
+    <header class="mb-3">
+      <h1 class="h4 fw-bold mb-1" data-i18n="opsi_title">Opsi</h1>
+      <p class="small text-body-secondary mb-0" data-i18n="opsi_desc">Pengaturan aplikasi.</p>
+    </header>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+      <div class="list-group list-group-flush">
+
+        <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3"
+                data-bs-toggle="modal" data-bs-target="#modalBahasa">
+          <span class="opt-icon"><i class="bi bi-translate"></i></span>
+          <span class="flex-grow-1 text-start">
+            <span class="d-block fw-semibold small" data-i18n="opt_lang">Pengaturan bahasa</span>
+            <span class="d-block small text-body-secondary" id="langValue">Indonesia</span>
+          </span>
+          <i class="bi bi-chevron-right text-body-secondary"></i>
+        </button>
+
+        <div class="list-group-item d-flex align-items-center gap-3 py-3">
+          <span class="opt-icon"><i class="bi bi-phone"></i></span>
+          <span class="flex-grow-1">
+            <span class="d-block fw-semibold small" data-i18n="opt_storage">Penyimpanan</span>
+            <span class="d-block small text-body-secondary" data-i18n="storage_value">Folder Download perangkat</span>
+          </span>
+          <span class="badge rounded-pill bg-body-secondary text-body-secondary">
+            <i class="bi bi-lock-fill me-1"></i><span data-i18n="storage_badge">Default</span>
+          </span>
+        </div>
+
+        <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3"
+                data-bs-toggle="modal" data-bs-target="#modalKontak">
+          <span class="opt-icon"><i class="bi bi-envelope"></i></span>
+          <span class="flex-grow-1 text-start">
+            <span class="d-block fw-semibold small" data-i18n="opt_kontak">Info kontak</span>
+            <span class="d-block small text-body-secondary">Gx Dikzz Dev</span>
+          </span>
+          <i class="bi bi-chevron-right text-body-secondary"></i>
+        </button>
+
+      </div>
+    </div>
+    <p class="text-center small text-body-secondary mt-4 mb-0" id="versionTag"></p>
+  </section>
+
+</main>
+
+<nav class="bottom-nav fixed-bottom bg-body border-top" aria-label="Navigasi utama">
+  <div class="nav nav-fill gap-1 px-2 pt-2 mx-auto" style="max-width:720px">
+    <button type="button" class="nav-link active" data-page="beranda" aria-current="page">
+      <i class="bi bi-house-door-fill"></i><span data-i18n="nav_beranda">Beranda</span>
+    </button>
+    <button type="button" class="nav-link" data-page="download">
+      <i class="bi bi-download"></i><span data-i18n="nav_download">Download</span>
+    </button>
+    <button type="button" class="nav-link" data-page="opsi">
+      <i class="bi bi-gear-fill"></i><span data-i18n="nav_opsi">Opsi</span>
+    </button>
+  </div>
+</nav>
+
+<div class="modal fade" id="modalBahasa" tabindex="-1" aria-labelledby="modalBahasaTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+      <div class="modal-header border-0 pb-0">
+        <h2 class="modal-title h5 fw-bold" id="modalBahasaTitle" data-i18n="modal_lang_title">Pengaturan bahasa</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="list-group">
+          <label class="list-group-item d-flex align-items-center gap-3 py-3">
+            <input class="form-check-input mt-0" type="radio" name="lang" value="Indonesia"><span>Indonesia</span>
+          </label>
+          <label class="list-group-item d-flex align-items-center gap-3 py-3">
+            <input class="form-check-input mt-0" type="radio" name="lang" value="English"><span>English</span>
+          </label>
+          <label class="list-group-item d-flex align-items-center gap-3 py-3">
+            <input class="form-check-input mt-0" type="radio" name="lang" value="日本語"><span>日本語 (Japan)</span>
+          </label>
+          <label class="list-group-item d-flex align-items-center gap-3 py-3">
+            <input class="form-check-input mt-0" type="radio" name="lang" value="Jawa"><span>Jawa (Basa Jawa)</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal" data-i18n="common_cancel">Batal</button>
+        <button type="button" class="btn btn-gx flex-fill" id="saveLang" data-i18n="common_save">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalKontak" tabindex="-1" aria-labelledby="modalKontakTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+      <div class="modal-header border-0 pb-0">
+        <h2 class="modal-title h5 fw-bold" id="modalKontakTitle" data-i18n="modal_kontak_title">Info kontak</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+            <span class="text-body-secondary small" data-i18n="contact_dev">Developer</span>
+            <span class="small">Gx Dikzz Dev</span>
+          </li>
+        </ul>
+        <div class="d-grid gap-3 mt-3">
+          <a class="btn btn-contact btn-saweria" id="saweriaLink" href="https://saweria.co/gxdikzz" target="_blank" rel="noopener noreferrer">
+            <svg class="ct-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8z" fill="#fff" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.5 16.4c-1.7-1.2-2.7-2-2.7-3.1a1.5 1.5 0 0 1 2.7-.9 1.5 1.5 0 0 1 2.7.9c0 1.1-1 1.9-2.7 3.1z" fill="#ff5a5f"/>
+            </svg>
+            <span>Saweria</span>
+          </a>
+          <a class="btn btn-contact btn-wa" id="waLink" href="#" target="_blank" rel="noopener noreferrer" hidden>
+            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+            <span>WhatsApp</span>
+          </a>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-gx w-100" data-bs-dismiss="modal" data-i18n="common_close">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed start-50 translate-middle-x toast-wrap">
+  <div id="appToast" class="toast align-items-center text-bg-dark border-0 w-100" role="status" aria-live="polite" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body small" id="toastBody"></div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+"use strict";
+
+const CONFIG = {
+  APP_NAME: "Gx Dikzz Downloader",
+  VERSION: "v3.1",
+  DEFAULT_LANG: "Indonesia",
+  TOAST_MS: 2600,
+  FETCH_TIMEOUT_MS: 8000,
+  PROXY_TIMEOUT_MS: 15000,
+  BLOB_REVOKE_MS: 300000,
+  PREVIEW_DEBOUNCE_MS: 150,
+  HISTORY_TTL_HOURS: 6,
+  STORAGE_KEYS: { LANG: "gd_lang", HISTORY: "gd_history" },
+  API: {
+    YT_SEARCH:     "https://apigxdikzz.vercel.app/search/youtube?q=",
+    YT_MP3:        "https://apigxdikzz.vercel.app/download/youtube?format=mp3&url=",
+    YT_MP4:        "https://apigxdikzz.vercel.app/download/youtube?format=mp4&url=",
+    YT_MP4_SUFFIX: "",
+    TIKTOK:        "https://apigxdikzz.vercel.app/download/tiktok?url="
+  },
+  MY_PROXY: "https://throbbing-glade-e164.pantathitamnyelempet.workers.dev",
+  CORS_PROXIES: [
+    url => "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
+    url => "https://corsproxy.io/?url=" + encodeURIComponent(url),
+    url => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(url)
+  ],
+  THUMB: {
+    YT_MEDIUM: id => "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg",
+    YT_HIGH:   id => "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg"
+  },
+  YT_EMBED: id => "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1",
+  YT_OEMBED: url => "https://www.youtube.com/oembed?format=json&url=" + encodeURIComponent(url),
+  TITLE_TIMEOUT_MS: 8000,
+  SEARCH_SUFFIXES: ["", " official", " lyrics", " audio", " video", " full", " live", " terbaru", " hd", " 2026"],
+  WA_LINK: "https://wa.me/message/CG3PKD5V3RVXD1",
+  SAWERIA_LINK: "https://saweria.co/gxdikzz",
+  BACK_EXIT_MS: 2500,
+  MAX_BLOB_MB: 2048,
+  BLOB_PART_MB: 8
+};
+if(CONFIG.MY_PROXY){
+  CONFIG.CORS_PROXIES.unshift(url => CONFIG.MY_PROXY.replace(/\/+$/, "") + "/?url=" + encodeURIComponent(url));
+}
+
+const LANG_CODE = { "Indonesia": "id", "English": "en", "日本語": "ja", "Jawa": "jv" };
+
+const I18N = {
+  id: {
+    nav_beranda: "Beranda", nav_download: "Download", nav_opsi: "Opsi",
+    home_title: "Cari video", home_desc: "Ketik judul, artis, atau tempel kata kunci buat cari di YouTube.",
+    search_placeholder: "Cari di YouTube...", aria_search: "Cari",
+    home_empty: "Belum ada pencarian.<br>Coba ketik sesuatu di atas.",
+    home_searching: q => `Mencari "${q}"...`,
+    home_no_results: q => `Nggak ada hasil buat "${q}".`,
+    home_error: msg => `Gagal memuat pencarian.<br>${msg}`,
+    dl_title: "Tempel link", dl_desc: "Link YouTube atau TikTok, tempel di bawah ini.",
+    link_placeholder: "Tempel link YouTube / TikTok...",
+    paste_btn: "Tempel",
+    link_youtube_ok: "Link YouTube terdeteksi, memuat info...",
+    link_tiktok_ok: "Link TikTok terdeteksi, memuat info...",
+    link_invalid: "Link belum dikenali. Tempel link YouTube atau TikTok.",
+    fmt_mp3_note: "Audio saja", fmt_mp4_note: "Video + audio",
+    tiktok_btn: "Download video",
+    btn_download: "Download",
+    loading_info: "Memuat info...",
+    untitled: "Tanpa judul",
+    playing_tag: "Sedang diputar",
+    aria_play: "Putar", aria_delete: "Hapus",
+    processing_contact_server: "Menghubungi server...",
+    processing_downloading_file: "Mengunduh file...",
+    processing_downloading_pct: (p, got, total) => `Mengunduh... ${p}% (${got} / ${total})`,
+    processing_downloading_size: got => `Mengunduh... ${got}`,
+    processing_saved: "Selesai — file sudah masuk ke folder Download perangkat",
+    processing_opened_only: "File dibuka buat diputar — pencet tombol download di pemutarnya buat nyimpen manual",
+    processing_failed_title: "Gagal memproses link",
+    processing_failed_with: msg => `Gagal: ${msg}`,
+    history_title: "File tersimpan", history_empty: "Belum ada file yang diunduh.",
+    opsi_title: "Opsi", opsi_desc: "Pengaturan aplikasi.",
+    opt_lang: "Pengaturan bahasa", opt_storage: "Penyimpanan", opt_kontak: "Info kontak",
+    storage_value: "Folder Download perangkat", storage_badge: "Default",
+    modal_lang_title: "Pengaturan bahasa",
+    modal_kontak_title: "Info kontak",
+    contact_dev: "Developer", contact_support: "Support",
+    common_cancel: "Batal", common_save: "Simpan", common_close: "Tutup",
+    status_online: "Online", status_offline: "Offline",
+    toast_lang_saved: lang => `Bahasa disimpan: ${lang}`,
+    toast_clipboard_fail: "Gagal baca clipboard, tempel manual aja",
+    toast_download_success: format => `${format} berhasil didownload`,
+    toast_download_failed: msg => `Download gagal: ${msg}`,
+    toast_opened_only: "Nggak bisa didownload otomatis, filenya dibuka aja — simpan manual dari situ",
+    toast_no_item_url: "Link video buat item ini nggak ketemu di hasil pencarian",
+    toast_playing: title => `Memutar: ${title}`,
+    toast_play_first_download: "Download dulu file-nya biar bisa diputar",
+    toast_play_failed: "Gagal memutar file ini",
+    toast_deleted: "File dihapus dari riwayat",
+    toast_info_failed: msg => `Gagal ambil info: ${msg}`,
+    toast_back_exit: "Tekan kembali sekali lagi untuk keluar",
+    toast_share_received: "Link dari Bagikan diterima, memuat info...",
+    toast_share_invalid: "Yang dibagikan bukan link YouTube atau TikTok",
+    btn_cancel_dl: "Batalkan download",
+    processing_cancelled: "Download dibatalkan — bisa diunduh ulang",
+    toast_cancelled: "Download dibatalkan"
+  },
+  en: {
+    nav_beranda: "Home", nav_download: "Download", nav_opsi: "Options",
+    home_title: "Search videos", home_desc: "Type a title, artist, or keyword to search on YouTube.",
+    search_placeholder: "Search YouTube...", aria_search: "Search",
+    home_empty: "No search yet.<br>Try typing something above.",
+    home_searching: q => `Searching "${q}"...`,
+    home_no_results: q => `No results for "${q}".`,
+    home_error: msg => `Failed to load search results.<br>${msg}`,
+    dl_title: "Paste link", dl_desc: "Paste a YouTube or TikTok link below.",
+    link_placeholder: "Paste YouTube / TikTok link...",
+    paste_btn: "Paste",
+    link_youtube_ok: "YouTube link detected, loading info...",
+    link_tiktok_ok: "TikTok link detected, loading info...",
+    link_invalid: "Link not recognized. Paste a YouTube or TikTok link.",
+    fmt_mp3_note: "Audio only", fmt_mp4_note: "Video + audio",
+    tiktok_btn: "Download video",
+    btn_download: "Download",
+    loading_info: "Loading info...",
+    untitled: "Untitled",
+    playing_tag: "Now playing",
+    aria_play: "Play", aria_delete: "Delete",
+    processing_contact_server: "Contacting server...",
+    processing_downloading_file: "Downloading file...",
+    processing_downloading_pct: (p, got, total) => `Downloading... ${p}% (${got} / ${total})`,
+    processing_downloading_size: got => `Downloading... ${got}`,
+    processing_saved: "Done — the file is now in your device's Download folder",
+    processing_opened_only: "File opened for playback — tap the download button in the player to save it manually",
+    processing_failed_title: "Failed to process link",
+    processing_failed_with: msg => `Failed: ${msg}`,
+    history_title: "Saved files", history_empty: "No downloaded files yet.",
+    opsi_title: "Options", opsi_desc: "App settings.",
+    opt_lang: "Language settings", opt_storage: "Storage", opt_kontak: "Contact info",
+    storage_value: "Device Download folder", storage_badge: "Default",
+    modal_lang_title: "Language settings",
+    modal_kontak_title: "Contact info",
+    contact_dev: "Developer", contact_support: "Support",
+    common_cancel: "Cancel", common_save: "Save", common_close: "Close",
+    status_online: "Online", status_offline: "Offline",
+    toast_lang_saved: lang => `Language saved: ${lang}`,
+    toast_clipboard_fail: "Couldn't read clipboard, paste manually",
+    toast_download_success: format => `${format} downloaded successfully`,
+    toast_download_failed: msg => `Download failed: ${msg}`,
+    toast_opened_only: "Couldn't auto-download, the file was just opened — save it manually from there",
+    toast_no_item_url: "Couldn't find this item's video link in the search results",
+    toast_playing: title => `Now playing: ${title}`,
+    toast_play_first_download: "Download the file first before playing it",
+    toast_play_failed: "Failed to play this file",
+    toast_deleted: "File removed from history",
+    toast_info_failed: msg => `Failed to fetch info: ${msg}`,
+    toast_back_exit: "Press back once more to exit",
+    toast_share_received: "Link received from Share, loading info...",
+    toast_share_invalid: "The shared item is not a YouTube or TikTok link",
+    btn_cancel_dl: "Cancel download",
+    processing_cancelled: "Download cancelled — you can download it again",
+    toast_cancelled: "Download cancelled"
+  },
+  ja: {
+    nav_beranda: "ホーム", nav_download: "ダウンロード", nav_opsi: "設定",
+    home_title: "動画を検索", home_desc: "タイトル、アーティスト名、キーワードを入力してYouTubeを検索。",
+    search_placeholder: "YouTubeを検索...", aria_search: "検索",
+    home_empty: "検索履歴はまだありません。<br>上で何か入力してみてください。",
+    home_searching: q => `"${q}" を検索中...`,
+    home_no_results: q => `"${q}" の結果が見つかりません。`,
+    home_error: msg => `検索の読み込みに失敗しました。<br>${msg}`,
+    dl_title: "リンクを貼り付け", dl_desc: "YouTubeまたはTikTokのリンクを下に貼り付けてください。",
+    link_placeholder: "YouTube / TikTokのリンクを貼り付け...",
+    paste_btn: "貼り付け",
+    link_youtube_ok: "YouTubeリンクを検出、情報を読み込み中...",
+    link_tiktok_ok: "TikTokリンクを検出、情報を読み込み中...",
+    link_invalid: "リンクを認識できません。YouTubeかTikTokのリンクを貼り付けてください。",
+    fmt_mp3_note: "音声のみ", fmt_mp4_note: "動画＋音声",
+    tiktok_btn: "動画をダウンロード",
+    btn_download: "ダウンロード",
+    loading_info: "情報を読み込み中...",
+    untitled: "タイトルなし",
+    playing_tag: "再生中",
+    aria_play: "再生", aria_delete: "削除",
+    processing_contact_server: "サーバーに接続中...",
+    processing_downloading_file: "ファイルをダウンロード中...",
+    processing_downloading_pct: (p, got, total) => `ダウンロード中... ${p}% (${got} / ${total})`,
+    processing_downloading_size: got => `ダウンロード中... ${got}`,
+    processing_saved: "完了 — ファイルは端末のDownloadフォルダに保存されました",
+    processing_opened_only: "再生用に開きました — プレーヤーのダウンロードボタンから手動で保存してください",
+    processing_failed_title: "リンクの処理に失敗しました",
+    processing_failed_with: msg => `失敗: ${msg}`,
+    history_title: "保存済みファイル", history_empty: "まだダウンロードしたファイルはありません。",
+    opsi_title: "設定", opsi_desc: "アプリの設定。",
+    opt_lang: "言語設定", opt_storage: "保存先", opt_kontak: "お問い合わせ",
+    storage_value: "端末のDownloadフォルダ", storage_badge: "標準",
+    modal_lang_title: "言語設定",
+    modal_kontak_title: "お問い合わせ",
+    contact_dev: "開発者", contact_support: "サポート",
+    common_cancel: "キャンセル", common_save: "保存", common_close: "閉じる",
+    status_online: "オンライン", status_offline: "オフライン",
+    toast_lang_saved: lang => `言語を保存しました: ${lang}`,
+    toast_clipboard_fail: "クリップボードを読み取れません。手動で貼り付けてください",
+    toast_download_success: format => `${format} のダウンロードが完了しました`,
+    toast_download_failed: msg => `ダウンロード失敗: ${msg}`,
+    toast_opened_only: "自動保存できませんでした。開いたファイルから手動で保存してください",
+    toast_no_item_url: "この項目の動画リンクが検索結果に見つかりません",
+    toast_playing: title => `再生中: ${title}`,
+    toast_play_first_download: "再生する前にファイルをダウンロードしてください",
+    toast_play_failed: "このファイルの再生に失敗しました",
+    toast_deleted: "履歴からファイルを削除しました",
+    toast_info_failed: msg => `情報の取得に失敗しました: ${msg}`,
+    toast_back_exit: "もう一度「戻る」を押すと終了します",
+    toast_share_received: "共有されたリンクを受け取りました。情報を読み込み中...",
+    toast_share_invalid: "共有されたのはYouTubeまたはTikTokのリンクではありません",
+    btn_cancel_dl: "ダウンロードを中止",
+    processing_cancelled: "ダウンロードを中止しました — もう一度ダウンロードできます",
+    toast_cancelled: "ダウンロードを中止しました"
+  },
+  jv: {
+    nav_beranda: "Ngarep", nav_download: "Undhuh", nav_opsi: "Pilihan",
+    home_title: "Goleki video", home_desc: "Ketik judhul, artis, utawa tembung kunci kanggo nggoleki ing YouTube.",
+    search_placeholder: "Goleki ing YouTube...", aria_search: "Goleki",
+    home_empty: "Durung ana panelusuran.<br>Coba ketik apa wae ing ndhuwur.",
+    home_searching: q => `Nggoleki "${q}"...`,
+    home_no_results: q => `Ora ana asil kanggo "${q}".`,
+    home_error: msg => `Gagal ngemot panelusuran.<br>${msg}`,
+    dl_title: "Tempel link", dl_desc: "Link YouTube utawa TikTok, tempelna ing ngisor iki.",
+    link_placeholder: "Tempel link YouTube / TikTok...",
+    paste_btn: "Tempel",
+    link_youtube_ok: "Link YouTube kadeteksi, lagi ngemot info...",
+    link_tiktok_ok: "Link TikTok kadeteksi, lagi ngemot info...",
+    link_invalid: "Link durung dikenali. Tempelna link YouTube utawa TikTok.",
+    fmt_mp3_note: "Audio thok", fmt_mp4_note: "Video + audio",
+    tiktok_btn: "Undhuh video",
+    btn_download: "Undhuh",
+    loading_info: "Ngemot info...",
+    untitled: "Tanpa judhul",
+    playing_tag: "Lagi diputer",
+    aria_play: "Puter", aria_delete: "Busak",
+    processing_contact_server: "Nyambung menyang server...",
+    processing_downloading_file: "Ngundhuh file...",
+    processing_downloading_pct: (p, got, total) => `Ngundhuh... ${p}% (${got} / ${total})`,
+    processing_downloading_size: got => `Ngundhuh... ${got}`,
+    processing_saved: "Rampung — file wis mlebu ing folder Download piranti",
+    processing_opened_only: "File dibukak kanggo diputer — pencet tombol undhuh ing pamuter kanggo nyimpen manual",
+    processing_failed_title: "Gagal ngolah link",
+    processing_failed_with: msg => `Gagal: ${msg}`,
+    history_title: "File kesimpen", history_empty: "Durung ana file sing diundhuh.",
+    opsi_title: "Pilihan", opsi_desc: "Setelan aplikasi.",
+    opt_lang: "Setelan basa", opt_storage: "Panyimpenan", opt_kontak: "Info kontak",
+    storage_value: "Folder Download piranti", storage_badge: "Standar",
+    modal_lang_title: "Setelan basa",
+    modal_kontak_title: "Info kontak",
+    contact_dev: "Pangembang", contact_support: "Dhukungan",
+    common_cancel: "Batal", common_save: "Simpen", common_close: "Tutup",
+    status_online: "Online", status_offline: "Offline",
+    toast_lang_saved: lang => `Basa disimpen: ${lang}`,
+    toast_clipboard_fail: "Gagal maca clipboard, tempel manual wae",
+    toast_download_success: format => `${format} kasil diundhuh`,
+    toast_download_failed: msg => `Undhuhan gagal: ${msg}`,
+    toast_opened_only: "Ora bisa diundhuh otomatis, file-e mung dibukak — simpen manual saka kana",
+    toast_no_item_url: "Link video kanggo item iki ora ketemu ing asil panelusuran",
+    toast_playing: title => `Muter: ${title}`,
+    toast_play_first_download: "Undhuh disik file-e supaya bisa diputer",
+    toast_play_failed: "Gagal muter file iki",
+    toast_deleted: "File dibusak saka riwayat",
+    toast_info_failed: msg => `Gagal njupuk info: ${msg}`,
+    toast_back_exit: "Pencet mbalik maneh kanggo metu",
+    toast_share_received: "Link saka Bagikan katompo, lagi ngemot info...",
+    toast_share_invalid: "Sing dibagekake dudu link YouTube utawa TikTok",
+    btn_cancel_dl: "Batalke undhuhan",
+    processing_cancelled: "Undhuhan dibatalke — bisa diundhuh maneh",
+    toast_cancelled: "Undhuhan dibatalke"
+  }
+};
+
+function readJson(key, fallback){
+  try{ const v = JSON.parse(localStorage.getItem(key)); return v === null || v === undefined ? fallback : v; }
+  catch(e){ return fallback; }
+}
+function storeGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function storeSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+
+const state = {
+  lang: (function(){
+    const v = storeGet(CONFIG.STORAGE_KEYS.LANG);
+    return Object.prototype.hasOwnProperty.call(LANG_CODE, v) ? v : CONFIG.DEFAULT_LANG;
+  })(),
+  history: sanitizeHistory(readJson(CONFIG.STORAGE_KEYS.HISTORY, []))
+};
+if(!Array.isArray(state.history)) state.history = [];
+state.langCode = LANG_CODE[state.lang] || "id";
+
+function t(key, ...args){
+  const dict = I18N[state.langCode] || I18N.id;
+  const entry = dict[key] !== undefined ? dict[key] : I18N.id[key];
+  return typeof entry === "function" ? entry(...args) : entry;
+}
+
+function applyI18n(root){
+  root = root || document;
+  root.querySelectorAll("[data-i18n]").forEach(el=>{
+    const v = t(el.dataset.i18n);
+    if(v !== undefined) el.innerHTML = v;
+  });
+  root.querySelectorAll("[data-i18n-ph]").forEach(el=>{
+    const v = t(el.dataset.i18nPh);
+    if(v !== undefined) el.placeholder = v;
+  });
+  root.querySelectorAll("[data-i18n-aria]").forEach(el=>{
+    const v = t(el.dataset.i18nAria);
+    if(v !== undefined) el.setAttribute("aria-label", v);
+  });
+}
+
+function applyLanguage(){
+  document.documentElement.lang = state.langCode;
+  $("#langValue").textContent = state.lang;
+  applyI18n(document);
+  updateOnlineStatus();
+  renderHistory();
+  if(!searchRendered) renderEmpty("search", t("home_empty"));
+}
+
+function $(sel){ return document.querySelector(sel); }
+function $all(sel){ return document.querySelectorAll(sel); }
+
+function esc(str){
+  return String(str === null || str === undefined ? "" : str)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+const toastInstance = bootstrap.Toast.getOrCreateInstance($("#appToast"), { delay: CONFIG.TOAST_MS });
+function showToast(msg){
+  $("#toastBody").textContent = msg;
+  toastInstance.show();
+}
+
+/* ===== Keamanan: validasi URL & data ===== */
+function safeHttpUrl(v){
+  const str = String(v == null ? "" : v).trim();
+  if(!str || str.length > 4096) return null;
+  try{
+    const u = new URL(str);
+    if(u.protocol !== "https:" && u.protocol !== "http:") return null;
+    if(u.username || u.password) return null;
+    if(u.protocol === "http:") u.protocol = "https:";
+    return u.href;
+  }catch(e){ return null; }
+}
+
+function hostMatches(host, domain){ return host === domain || host.endsWith("." + domain); }
+
+function parseLink(raw){
+  const s = String(raw == null ? "" : raw).trim();
+  if(!s || s.length > 2048) return null;
+  try{
+    const u = new URL(/^[a-z][a-z0-9+.-]*:/i.test(s) ? s : "https://" + s);
+    if(u.protocol !== "https:" && u.protocol !== "http:") return null;
+    if(u.username || u.password) return null;
+    return u;
+  }catch(e){ return null; }
+}
+
+function detectLinkType(raw){
+  const u = parseLink(raw);
+  if(!u) return null;
+  const h = u.hostname.toLowerCase();
+  if(hostMatches(h, "youtube.com") || hostMatches(h, "youtu.be")) return "youtube";
+  if(hostMatches(h, "tiktok.com")) return "tiktok";
+  return null;
+}
+
+function cleanLink(raw){
+  const u = parseLink(raw);
+  if(!u || !detectLinkType(raw)) return null;
+  if(u.protocol === "http:") u.protocol = "https:";
+  return u.href;
+}
+
+function sanitizeHistory(list){
+  if(!Array.isArray(list)) return [];
+  const out = [];
+  list.slice(0, 200).forEach(h => {
+    if(!h || typeof h !== "object") return;
+    const downloadUrl = safeHttpUrl(h.downloadUrl);
+    if(!downloadUrl) return;
+    const isVideo = !!h.isVideo;
+    const dflt = isVideo ? "mp4" : "mp3";
+    out.push({
+      id: String(h.id || "").slice(0, 40) || (Date.now() + "-" + Math.random().toString(36).slice(2, 6)),
+      title: String(h.title == null ? "" : h.title).slice(0, 300),
+      caption: String(h.caption == null ? "" : h.caption).slice(0, 300),
+      source: h.source === "TIKTOK" ? "TIKTOK" : "YOUTUBE",
+      format: h.format === "MP3" ? "MP3" : "MP4",
+      downloadUrl, isVideo,
+      ext: String(h.ext || dflt).replace(/[^a-z0-9]/gi, "").slice(0, 5) || dflt,
+      thumbnail: safeHttpUrl(h.thumbnail)
+    });
+  });
+  return out;
+}
+
+function extractYouTubeId(url){
+  const m = String(url || "").match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/))([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function safeFileName(name){
+  return (name || "gxdikzz-file").replace(/[\\/:*?"<>|]+/g, "_").slice(0, 80);
+}
+
+function fileNameFor(item){
+  const ext = String(item.ext || (item.isVideo ? "mp4" : "mp3")).replace(/[^a-z0-9]/gi, "") || (item.isVideo ? "mp4" : "mp3");
+  return safeFileName(item.title) + "." + ext;
+}
+
+function formatBytes(n){
+  if(n < 1048576) return Math.max(1, Math.round(n / 1024)) + " KB";
+  return (n / 1048576).toFixed(1) + " MB";
+}
+
+function looksRandomName(name){
+  return !name || /^[a-f0-9]{8,}[_-]/i.test(String(name));
+}
+
+async function fetchYoutubeTitle(url){
+  const controller = new AbortController();
+  const timer = setTimeout(()=> controller.abort(), CONFIG.TITLE_TIMEOUT_MS);
+  try{
+    const res = await fetch(CONFIG.YT_OEMBED(url), { signal: controller.signal, credentials: "omit", referrerPolicy: "no-referrer" });
+    if(!res.ok) return "";
+    const data = await res.json();
+    return String(data.title || "").trim();
+  }catch(e){ return ""; }
+  finally{ clearTimeout(timer); }
+}
+
+function uniqueFileName(item){
+  const base = fileNameFor(item);
+  const dup = state.history.filter(h => fileNameFor(h) === base).length;
+  if(dup === 0) return base;
+  const dot = base.lastIndexOf(".");
+  return base.slice(0, dot) + " (" + (dup + 1) + ")" + base.slice(dot);
+}
+
+function cancelError(){ const e = new Error("cancelled"); e.isCancel = true; return e; }
+function isCancel(err){ return !!err && (err.isCancel === true || err.name === "AbortError"); }
+function throwIfAborted(signal){ if(signal && signal.aborted) throw cancelError(); }
+
+async function apiGet(url, signal){
+  const res = await fetch(url, { credentials: "omit", referrerPolicy: "no-referrer", signal });
+  if(!res.ok) throw new Error("Server error (" + res.status + ")");
+  return res.json();
+}
+
+function toUrl(v){
+  if(!v) return null;
+  if(typeof v === "string") return v.indexOf("//") === 0 ? "https:" + v : v;
+  if(Array.isArray(v)){
+    for(let i = 0; i < v.length; i++){ const u = toUrl(v[i]); if(u) return u; }
+    return null;
+  }
+  if(typeof v === "object") return toUrl(v.url || v.src || v.link);
+  return null;
+}
+
+function textOf(v){
+  if(!v) return "";
+  if(typeof v === "string") return v;
+  if(typeof v === "object") return String(v.name || v.title || "");
+  return String(v);
+}
+
+function formatDuration(v){
+  if(v && typeof v === "object") v = v.timestamp || v.label || v.seconds || "";
+  if(typeof v === "number" || /^\d+$/.test(String(v))){
+    const s = Number(v), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    const pad = n => String(n).padStart(2, "0");
+    return h > 0 ? `${h}:${pad(m)}:${pad(sec)}` : `${m}:${pad(sec)}`;
+  }
+  return String(v || "");
+}
+
+function pickVideoId(it){
+  const cands = [it.videoId, it.video_id, it.id && it.id.videoId, it.id];
+  for(let i = 0; i < cands.length; i++){
+    if(typeof cands[i] === "string" && /^[\w-]{11}$/.test(cands[i])) return cands[i];
+  }
+  return null;
+}
+
+function searchThumbCandidates(apiThumb, videoId){
+  const list = [];
+  if(videoId){ list.push(CONFIG.THUMB.YT_MEDIUM(videoId), CONFIG.THUMB.YT_HIGH(videoId)); }
+  if(apiThumb) list.push(apiThumb);
+  return list.filter((u, i) => list.indexOf(u) === i);
+}
+
+function loadThumb(box, urls){
+  const img = box.querySelector("img");
+  const fb  = box.querySelector(".thumb-fallback");
+  img.classList.add("d-none");
+  img.removeAttribute("src");
+  fb.classList.remove("d-none");
+  if(!urls || urls.length === 0) return;
+  let i = 0;
+  const next = () => {
+    if(i >= urls.length){ img.classList.add("d-none"); fb.classList.remove("d-none"); return; }
+    img.src = urls[i++];
+  };
+  img.onload  = () => {
+    if(img.naturalWidth > 0){ img.classList.remove("d-none"); fb.classList.add("d-none"); }
+    else next();
+  };
+  img.onerror = next;
+  next();
+}
+
+function makeProgress(area){
+  const bar = area.querySelector(".js-bar");
+  const txt = area.querySelector(".js-ptext");
+  const cancelBtn = area.querySelector(".js-cancel");
+  let cancelFn = null;
+  if(cancelBtn) cancelBtn.addEventListener("click", ()=>{ if(cancelFn) cancelFn(); });
+  function showCancel(fn){
+    cancelFn = fn || null;
+    if(cancelBtn) cancelBtn.classList.toggle("d-none", !cancelFn);
+  }
+  function reset(){
+    bar.classList.remove("bg-success", "bg-danger");
+    bar.classList.add("progress-bar-striped", "progress-bar-animated");
+  }
+  return {
+    start(text, onCancel){ area.classList.remove("d-none"); reset(); bar.style.width = "100%"; txt.textContent = text || ""; showCancel(onCancel); },
+    text(s){ txt.textContent = s; },
+    percent(p){ bar.style.width = Math.max(4, Math.round(p * 100)) + "%"; },
+    indeterminate(){ bar.style.width = "100%"; },
+    done(ok, text){
+      showCancel(null);
+      bar.classList.remove("progress-bar-animated");
+      bar.classList.add(ok ? "bg-success" : "bg-danger");
+      bar.style.width = "100%";
+      txt.textContent = text;
+    },
+    hide(){ showCancel(null); area.classList.add("d-none"); }
+  };
+}
+
+function progressReporter(prog){
+  return (received, total) => {
+    if(total > 0){
+      prog.percent(received / total);
+      prog.text(t("processing_downloading_pct", Math.round(received / total * 100), formatBytes(received), formatBytes(total)));
+    } else {
+      prog.indeterminate();
+      prog.text(t("processing_downloading_size", formatBytes(received)));
+    }
+  };
+}
+
+async function openFetch(url, outerSignal, timeoutMs){
+  const controller = new AbortController();
+  if(outerSignal) outerSignal.addEventListener("abort", ()=> controller.abort());
+  const timer = setTimeout(()=> controller.abort(), timeoutMs);
+  try{
+    const res = await fetch(url, { signal: controller.signal, credentials: "omit", referrerPolicy: "no-referrer" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return res;
+  }finally{ clearTimeout(timer); }
+}
+
+async function readAsBlob(res, onProgress, signal){
+  const type  = res.headers.get("content-type") || "";
+  const total = parseInt(res.headers.get("content-length") || "0", 10);
+  const maxBytes = CONFIG.MAX_BLOB_MB * 1048576;
+
+  if(total > maxBytes){
+    try{ if(res.body) res.body.cancel(); }catch(e){}
+    throw new Error("File terlalu besar");
+  }
+  if(!res.body || !res.body.getReader){
+    return await res.blob();
+  }
+  const reader = res.body.getReader();
+  const parts = [];
+  let buf = [], bufSize = 0, received = 0;
+  const partBytes = CONFIG.BLOB_PART_MB * 1048576;
+  for(;;){
+    if(signal && signal.aborted){ try{ reader.cancel(); }catch(e){} throw cancelError(); }
+    const { done, value } = await reader.read();
+    if(done) break;
+    buf.push(value);
+    bufSize += value.length;
+    received += value.length;
+    if(received > maxBytes){
+      try{ reader.cancel(); }catch(e){}
+      throw new Error("File terlalu besar");
+    }
+    if(bufSize >= partBytes){ parts.push(new Blob(buf)); buf = []; bufSize = 0; }
+    if(onProgress) onProgress(received, total);
+  }
+  if(buf.length) parts.push(new Blob(buf));
+  return new Blob(parts, { type });
+}
+
+async function fetchAsBlobWithFallbacks(url, onProgress, outerSignal){
+  throwIfAborted(outerSignal);
+  const ctrls = [new AbortController()].concat(CONFIG.CORS_PROXIES.map(()=> new AbortController()));
+  const onOuterAbort = ()=> ctrls.forEach(c => c.abort());
+  if(outerSignal) outerSignal.addEventListener("abort", onOuterAbort);
+  const attempt = (i, target, timeoutMs) =>
+    openFetch(target, ctrls[i].signal, timeoutMs).then(res => ({ res, i }));
+
+  const direct = attempt(0, url, CONFIG.FETCH_TIMEOUT_MS);
+  const proxiesGo = new Promise(resolve => {
+    direct.then(()=>{}, resolve);
+    setTimeout(resolve, 2500);
+  });
+  const proxyJobs = CONFIG.CORS_PROXIES.map((build, i) =>
+    proxiesGo.then(()=>{
+      if(ctrls[i + 1].signal.aborted) throw new Error("dibatalkan");
+      return attempt(i + 1, build(url), CONFIG.PROXY_TIMEOUT_MS);
+    })
+  );
+
+  try{
+    const winner = await Promise.any([direct].concat(proxyJobs));
+    ctrls.forEach((c, i)=>{ if(i !== winner.i) c.abort(); });
+    return await readAsBlob(winner.res, onProgress, outerSignal);
+  }catch(e){
+    ctrls.forEach(c => c.abort());
+    if(outerSignal && outerSignal.aborted) throw cancelError();
+    console.warn("Semua jalur download gagal", e);
+    return null;
+  }finally{
+    if(outerSignal) outerSignal.removeEventListener("abort", onOuterAbort);
+  }
+}
+
+function triggerBlobDownload(blob, filename){
+  const blobUrl = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = blobUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=> URL.revokeObjectURL(blobUrl), CONFIG.BLOB_REVOKE_MS);
+}
+
+function openDirect(url, filename){
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+/* ===== Download native (APK Java): file ditulis langsung ke folder Download lewat GxNative =====
+   Aktif otomatis kalau jalan di APK; di browser tetap pakai jalur blob di bawah. */
+const NATIVE_DL = { seq: 0, jobs: {} };
+window.gxOnDownload = function(e){ const job = e && NATIVE_DL.jobs[e.id]; if(job) job(e); };
+
+function hasNativeDownload(){ return !!(window.GxNative && window.GxNative.download); }
+
+function nativeDownloadOnce(url, filename, onProgress, signal){
+  return new Promise((resolve, reject)=>{
+    const id = "dl" + Date.now() + "_" + (++NATIVE_DL.seq);
+    const onAbort = ()=>{ try{ window.GxNative.cancel(id); }catch(e){} };
+    const finish = fn => {
+      delete NATIVE_DL.jobs[id];
+      if(signal) signal.removeEventListener("abort", onAbort);
+      fn();
+    };
+    NATIVE_DL.jobs[id] = e => {
+      if(e.state === "progress"){ if(onProgress) onProgress(e.received, e.total > 0 ? e.total : 0); }
+      else if(e.state === "done") finish(()=> resolve("downloaded"));
+      else if(e.state === "cancelled") finish(()=> reject(cancelError()));
+      else if(e.state === "error") finish(()=> reject(new Error(e.message || "download gagal")));
+    };
+    if(signal){
+      if(signal.aborted){ delete NATIVE_DL.jobs[id]; reject(cancelError()); return; }
+      signal.addEventListener("abort", onAbort);
+    }
+    try{ window.GxNative.download(id, url, filename, ""); }
+    catch(err){ finish(()=> reject(err)); }
+  });
+}
+
+async function saveFileNative(url, filename, onProgress, signal){
+  try{
+    return await nativeDownloadOnce(url, filename, onProgress, signal);
+  }catch(err){
+    if(isCancel(err) || !CONFIG.MY_PROXY) throw err;
+    throwIfAborted(signal);
+    const viaProxy = CONFIG.MY_PROXY.replace(/\/+$/, "") + "/?url=" + encodeURIComponent(url);
+    return await nativeDownloadOnce(viaProxy, filename, onProgress, signal);
+  }
+}
+
+async function saveFileFromUrl(url, filename, onProgress, signal){
+  if(hasNativeDownload()) return saveFileNative(url, filename, onProgress, signal);
+  const blob = await fetchAsBlobWithFallbacks(url, onProgress, signal);
+  throwIfAborted(signal);
+  if(!blob){
+    openDirect(url, filename);
+    return "opened";
+  }
+  triggerBlobDownload(blob, filename);
+  return "downloaded";
+}
+
+async function searchYoutube(query){
+  const data = await apiGet(CONFIG.API.YT_SEARCH + encodeURIComponent(query));
+  console.log("YT search raw:", data);
+  if(data.status === false) throw new Error(data.message || "Pencarian gagal");
+
+  const items = data.result || data.data || data.results || (Array.isArray(data) ? data : []);
+  return items.map(it => {
+    const rawLink  = safeHttpUrl(it.url || it.link || it.videoUrl || it.video_url);
+    const rawUrl   = rawLink && detectLinkType(rawLink) === "youtube" ? rawLink : null;
+    const videoId  = (rawUrl && extractYouTubeId(rawUrl)) || pickVideoId(it);
+    const apiThumb = safeHttpUrl(toUrl(it.thumbnail || it.thumb || it.image || it.img || it.cover || it.thumbnails || it.thumbnail_url));
+    const thumbs   = searchThumbCandidates(apiThumb, videoId);
+    return {
+      title:     it.title || it.judul || t("untitled"),
+      channel:   textOf(it.channel || it.author || it.uploader || it.channelTitle) || "-",
+      duration:  formatDuration(it.duration || it.durasi || it.timestamp),
+      thumbnails: thumbs,
+      thumbnail: thumbs[0] || null,
+      url:       rawUrl || (videoId ? "https://www.youtube.com/watch?v=" + videoId : null),
+      downloadUrl: null, isVideo: false
+    };
+  });
+}
+
+async function searchYoutubeMore(query, onNew){
+  const seen = new Set();
+  const merged = [];
+  const jobs = CONFIG.SEARCH_SUFFIXES.map(suf =>
+    searchYoutube(query + suf).then(list => {
+      const fresh = [];
+      list.forEach(it => {
+        const key = it.url || it.title;
+        if(seen.has(key)) return;
+        seen.add(key);
+        merged.push(it);
+        fresh.push(it);
+      });
+      if(onNew && fresh.length) onNew(fresh);
+      return list;
+    })
+  );
+  const settled = await Promise.allSettled(jobs);
+  if(merged.length === 0){
+    const failed = settled.find(r => r.status === "rejected");
+    if(failed) throw failed.reason;
+  }
+  return merged;
+}
+
+async function downloadYoutube(url, format, signal){
+  const isMp3 = format === "MP3";
+  const endpoint = isMp3
+    ? CONFIG.API.YT_MP3 + encodeURIComponent(url)
+    : CONFIG.API.YT_MP4 + encodeURIComponent(url) + CONFIG.API.YT_MP4_SUFFIX;
+
+  const data = await apiGet(endpoint, signal);
+  console.log("YT download raw:", data);
+  if(data.status === false) throw new Error(data.message || "Gagal ambil link download");
+
+  const result = data.result || data.data || {};
+  const downloadUrl = safeHttpUrl(toUrl(result.download_url || result.downloadUrl || result.url || result.link));
+  if(!downloadUrl) throw new Error("Link download nggak ada di respons API");
+
+  return {
+    title: result.title || "",
+    downloadUrl,
+    ext: (result.format || (isMp3 ? "mp3" : "mp4")).toString().replace(".", ""),
+    isVideo: !isMp3
+  };
+}
+
+async function downloadTiktok(url, signal){
+  const data = await apiGet(CONFIG.API.TIKTOK + encodeURIComponent(url), signal);
+  console.log("TikTok raw:", data);
+
+  const result = data.result || {};
+  if(data.status === false || result.code === -1){
+    throw new Error(result.msg || data.message || "Gagal proses link TikTok");
+  }
+
+  const downloadUrl = safeHttpUrl(toUrl(
+    result.video_url || result.play || result.no_watermark || result.download_url ||
+    (Array.isArray(result.video) ? result.video[0] : null) ||
+    (result.data && (result.data.play || result.data.url)) || null
+  ));
+
+  if(!downloadUrl) throw new Error("Link download nggak ketemu di respons API");
+
+  const thumbnail = safeHttpUrl(toUrl(
+    result.cover || result.thumbnail || result.origin_cover ||
+    (Array.isArray(result.images) ? result.images[0] : null)
+  ));
+
+  return {
+    title: result.title || result.desc || result.caption || "Video TikTok",
+    caption: (result.author && (result.author.nickname || result.author.unique_id)) || result.username || "",
+    downloadUrl, thumbnail,
+    ext: "mp4", isVideo: true
+  };
+}
+
+let currentPage = "beranda";
+function goToPage(name, fromHistory){
+  if(!fromHistory && name !== currentPage){
+    try{ history.pushState({ gx: 1, page: name }, ""); }catch(e){}
+  }
+  currentPage = name;
+  $all(".page").forEach(p => p.classList.toggle("active", p.id === "page-" + name));
+  $all(".bottom-nav .nav-link").forEach(b => {
+    const on = b.dataset.page === name;
+    b.classList.toggle("active", on);
+    if(on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  });
+  window.scrollTo(0, 0);
+}
+$all(".bottom-nav .nav-link").forEach(btn => btn.addEventListener("click", ()=> goToPage(btn.dataset.page)));
+
+/* ===== Tombol kembali (APK/WebView) =====
+   Riwayat: [penjaga] [halaman app] [halaman lain] [modal].
+   Entri riwayat dibikin pas ada sentuhan pertama (user gesture) supaya Chrome/WebView
+   nggak nge-skip entri itu. Kembali di Beranda = toast, tekan lagi dalam beberapa detik = keluar. */
+const BACK = { skip: false, waiting: false, timer: null, ready: false, exitUntil: 0 };
+
+function backEnsureGuard(){
+  try{
+    if(!BACK.ready){
+      BACK.ready = true;
+      if(history.state && history.state.gx !== undefined) return;
+      history.replaceState({ gx: 0 }, "");
+      history.pushState({ gx: 1, page: currentPage }, "");
+      return;
+    }
+    const st = history.state;
+    if(st && st.gx === 0){
+      history.pushState({ gx: 1, page: currentPage }, "");
+      BACK.waiting = false;
+      clearTimeout(BACK.timer);
+    }
+  }catch(e){}
+}
+["click", "touchend", "keydown"].forEach(ev => document.addEventListener(ev, backEnsureGuard, { capture: true, passive: true }));
+
+window.addEventListener("popstate", e => {
+  if(BACK.skip){ BACK.skip = false; return; }
+  const openModal = document.querySelector(".modal.show");
+  if(openModal){ bootstrap.Modal.getOrCreateInstance(openModal).hide(); return; }
+
+  const st = e.state;
+  if(st && st.gx === 1 && st.page){
+    BACK.waiting = false;
+    clearTimeout(BACK.timer);
+    if(st.page !== currentPage) goToPage(st.page, true);
+    return;
+  }
+
+  if(currentPage !== "beranda") goToPage("beranda", true);
+  BACK.waiting = true;
+  showToast(t("toast_back_exit"));
+  clearTimeout(BACK.timer);
+  BACK.timer = setTimeout(()=>{ BACK.waiting = false; }, CONFIG.BACK_EXIT_MS);
+});
+
+$all(".modal").forEach(m => {
+  m.addEventListener("show.bs.modal", ()=>{
+    try{ history.pushState({ gx: 2, modal: m.id }, ""); }catch(e){}
+  });
+  m.addEventListener("hidden.bs.modal", ()=>{
+    if(history.state && history.state.modal){ BACK.skip = true; history.back(); }
+  });
+});
+
+/* ===== window.gxHandleBack() — dipanggil native saat tombol kembali Android ditekan =====
+   Return true  = web sudah nanganin (nutup popup/pemutar, pindah ke Beranda, atau nampilin toast "tekan lagi").
+   Return false = nggak ada lagi yang perlu ditutup, native boleh keluar dari aplikasi.
+   Pakai ini SAJA di native (jangan digabung dengan webView.goBack()). Contoh MainActivity (Java):
+
+     @Override public void onBackPressed(){
+       webView.evaluateJavascript(
+         "window.gxHandleBack ? window.gxHandleBack() : false",
+         value -> { if(!"true".equals(value)) finish(); });
+     }
+*/
+function gxHandleBack(){
+  if(document.getElementById("gxSplash")) return true;
+
+  const openModal = document.querySelector(".modal.show");
+  if(openModal){ bootstrap.Modal.getOrCreateInstance(openModal).hide(); return true; }
+
+  if(openPlayerCard){ closePlayer(openPlayerCard); return true; }
+
+  if(currentPage !== "beranda"){ goToPage("beranda", true); return true; }
+
+  const now = Date.now();
+  if(now < BACK.exitUntil) return false;
+  BACK.exitUntil = now + CONFIG.BACK_EXIT_MS;
+  showToast(t("toast_back_exit"));
+  return true;
+}
+window.gxHandleBack = gxHandleBack;
+
+let openPlayerCard = null;
+
+function setPlayIcon(card, playing){
+  card.querySelectorAll(".js-play-icon").forEach(i => {
+    i.classList.toggle("bi-pause-fill", playing);
+    i.classList.toggle("bi-play-fill", !playing);
+  });
+}
+
+function setPlayable(card, on){
+  const box = card.querySelector(".js-thumb");
+  if(box) box.classList.toggle("is-playable", on);
+}
+
+function closePlayer(card){
+  const block = card.querySelector(".player-block");
+  if(block){
+    if(block.__abortDl){ block.__abortDl(); block.__abortDl = null; }
+    const media = block.querySelector("video, audio");
+    if(media){ media.pause(); media.removeAttribute("src"); media.load(); }
+    block.classList.add("d-none");
+    block.innerHTML = "";
+  }
+  card.classList.remove("gx-playing");
+  const tag = card.querySelector(".js-playing-tag");
+  if(tag) tag.classList.add("d-none");
+  setPlayIcon(card, false);
+  if(openPlayerCard === card) openPlayerCard = null;
+}
+
+function togglePlay(card, item){
+  const block = card.querySelector(".player-block");
+  if(!block) return;
+
+  const alreadyOpenHere = !block.classList.contains("d-none");
+  if(openPlayerCard && openPlayerCard !== card) closePlayer(openPlayerCard);
+  if(alreadyOpenHere){ closePlayer(card); return; }
+
+  if(!item || !item.downloadUrl){ showToast(t("toast_play_first_download")); return; }
+
+  const media = document.createElement(item.isVideo ? "video" : "audio");
+  media.controls = true;
+  media.autoplay = true;
+  if(item.isVideo) media.setAttribute("playsinline", "");
+  media.src = item.downloadUrl;
+  media.addEventListener("ended", ()=> closePlayer(card));
+  media.addEventListener("error", ()=>{
+    if(openPlayerCard !== card) return;
+    closePlayer(card);
+    showToast(t("toast_play_failed"));
+  });
+
+  const dlBtn = document.createElement("button");
+  dlBtn.type = "button";
+  let dlCtl = null;
+  function setDlLabel(busy){
+    dlBtn.className = "btn btn-sm w-100 mt-2 " + (busy ? "btn-outline-danger" : "btn-gx");
+    dlBtn.innerHTML = busy
+      ? `<i class="bi bi-x-circle me-1"></i><span data-i18n="btn_cancel_dl"></span>`
+      : `<i class="bi bi-download me-1"></i><span data-i18n="btn_download"></span>`;
+    applyI18n(dlBtn);
+  }
+  setDlLabel(false);
+  dlBtn.addEventListener("click", async ()=>{
+    if(dlCtl){ dlCtl.abort(); return; }
+    const ctl = dlCtl = new AbortController();
+    block.__abortDl = ()=> ctl.abort();
+    setDlLabel(true);
+    try{
+      const status = await saveFileFromUrl(item.downloadUrl, fileNameFor(item), null, ctl.signal);
+      showToast(status === "downloaded" ? t("toast_download_success", item.isVideo ? "MP4" : "MP3") : t("toast_opened_only"));
+    }catch(err){
+      showToast(isCancel(err) ? t("toast_cancelled") : t("toast_download_failed", err.message));
+    }finally{
+      dlCtl = null;
+      block.__abortDl = null;
+      setDlLabel(false);
+    }
+  });
+
+  block.innerHTML = "";
+  block.appendChild(media);
+  block.appendChild(dlBtn);
+  applyI18n(block);
+  block.classList.remove("d-none");
+
+  card.classList.add("gx-playing");
+  const tag = card.querySelector(".js-playing-tag");
+  if(tag) tag.classList.remove("d-none");
+  setPlayIcon(card, true);
+  openPlayerCard = card;
+  showToast(t("toast_playing", item.title));
+}
+
+function toggleYtPreview(card, item){
+  const block = card.querySelector(".player-block");
+  if(!block) return;
+
+  const alreadyOpenHere = !block.classList.contains("d-none");
+  if(openPlayerCard && openPlayerCard !== card) closePlayer(openPlayerCard);
+  if(alreadyOpenHere){ closePlayer(card); return; }
+
+  if(!/^[\w-]{11}$/.test(String(item.videoId || ""))) return;
+  const wrap = document.createElement("div");
+  wrap.className = "ratio ratio-16x9 yt-embed";
+  const frame = document.createElement("iframe");
+  frame.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox");
+  frame.src = CONFIG.YT_EMBED(item.videoId);
+  frame.title = item.title;
+  frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+  frame.allowFullscreen = true;
+  frame.referrerPolicy = "strict-origin-when-cross-origin";
+  wrap.appendChild(frame);
+
+  block.innerHTML = "";
+  block.appendChild(wrap);
+  block.classList.remove("d-none");
+
+  card.classList.add("gx-playing");
+  const tag = card.querySelector(".js-playing-tag");
+  if(tag) tag.classList.remove("d-none");
+  setPlayIcon(card, true);
+  openPlayerCard = card;
+}
+
+const resultArea = $("#resultArea");
+let searchRendered = false;
+let searchToken = 0;
+
+function renderEmpty(icon, html){
+  resultArea.innerHTML = `
+    <div class="text-center text-body-secondary py-5 px-3">
+      <i class="bi bi-${icon} display-5 d-block mb-3 text-accent opacity-75"></i>
+      <p class="small mb-0">${html}</p>
+    </div>`;
+}
+
+function renderSkeleton(q){
+  let cards = "";
+  for(let i = 0; i < 3; i++){
+    cards += `
+      <div class="col">
+        <div class="card result-card border-0 shadow-sm" aria-hidden="true">
+          <div class="ratio ratio-16x9 bg-body-secondary"></div>
+          <div class="card-body placeholder-glow">
+            <span class="placeholder col-10 d-block mb-2"></span>
+            <span class="placeholder col-5 d-block"></span>
+          </div>
+        </div>
+      </div>`;
+  }
+  resultArea.innerHTML = `
+    <p class="small text-body-secondary mb-3"><span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>${t("home_searching", esc(q))}</p>
+    <div class="row row-cols-1 row-cols-sm-2 g-3">${cards}</div>`;
+}
+
+$("#searchForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const input = $("#searchInput");
+  const q = input.value.trim();
+  if(!q) return;
+  input.blur();
+
+  const myToken = ++searchToken;
+  searchRendered = true;
+  renderSkeleton(q);
+
+  try{
+    const row = document.createElement("div");
+    row.className = "row row-cols-1 row-cols-sm-2 g-3";
+    let shown = 0;
+    const items = await searchYoutubeMore(q, fresh => {
+      if(myToken !== searchToken) return;
+      if(shown === 0){ resultArea.innerHTML = ""; resultArea.appendChild(row); }
+      fresh.forEach(item => row.appendChild(buildResultCard(item)));
+      shown += fresh.length;
+    });
+    if(myToken !== searchToken) return;
+    if(items.length === 0){
+      renderEmpty("emoji-frown", t("home_no_results", esc(q)));
+      return;
+    }
+  }catch(err){
+    if(myToken !== searchToken) return;
+    renderEmpty("exclamation-triangle", t("home_error", esc(err.message)));
+  }
+});
+
+function buildResultCard(item){
+  const col = document.createElement("div");
+  col.className = "col";
+  col.innerHTML = `
+    <article class="card result-card h-100 border-0 shadow-sm">
+      <div class="ratio ratio-16x9">
+        <div class="thumb-inner js-thumb">
+          <img class="d-none" alt="" referrerpolicy="no-referrer">
+          <div class="thumb-fallback"><i class="bi bi-play-btn"></i></div>
+          <button type="button" class="thumb-play" data-i18n-aria="aria_play">
+            <i class="bi bi-play-fill js-play-icon"></i>
+          </button>
+          ${item.duration ? `<span class="badge text-bg-dark thumb-duration">${esc(item.duration)}</span>` : ""}
+        </div>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h3 class="h6 fw-semibold line-clamp-2 mb-1">${esc(item.title)}</h3>
+        <p class="small text-body-secondary text-truncate mb-1"><i class="bi bi-person-circle me-1"></i>${esc(item.channel)}</p>
+        <div class="small fw-semibold text-accent js-playing-tag d-none">
+          <i class="bi bi-soundwave me-1"></i><span data-i18n="playing_tag"></span>
+        </div>
+        <div class="player-block mt-3 d-none"></div>
+        <div class="d-flex gap-2 mt-auto pt-3">
+          <button type="button" class="btn btn-outline-primary btn-sm flex-fill js-fmt" data-format="MP3">
+            <i class="bi bi-music-note-beamed me-1"></i>MP3
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-sm flex-fill js-fmt" data-format="MP4">
+            <i class="bi bi-film me-1"></i>MP4
+          </button>
+        </div>
+        <div class="progress-area mt-3 d-none">
+          <div class="progress" role="progressbar" aria-label="Progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated js-bar" style="width:100%"></div>
+          </div>
+          <div class="small text-body-secondary mt-1 js-ptext"></div>
+          <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2 js-cancel d-none"><i class="bi bi-x-circle me-1"></i><span data-i18n="btn_cancel_dl">Batalkan download</span></button>
+        </div>
+      </div>
+    </article>`;
+
+  const card = col.querySelector(".result-card");
+  loadThumb(card.querySelector(".js-thumb"), item.thumbnails);
+  const ytId = extractYouTubeId(item.url);
+  if(ytId){
+    item.videoId = ytId;
+    setPlayable(card, true);
+  }
+  card.querySelector(".thumb-play").addEventListener("click", ()=> ytId ? toggleYtPreview(card, item) : togglePlay(card, item));
+  card.querySelectorAll(".js-fmt").forEach(btn=>{
+    btn.addEventListener("click", ()=> runResultDownload(card, item, btn.dataset.format));
+  });
+  applyI18n(col);
+  return col;
+}
+
+async function runResultDownload(card, item, format){
+  if(!item.url){ showToast(t("toast_no_item_url")); return; }
+
+  const prog = makeProgress(card.querySelector(".progress-area"));
+  const btns = card.querySelectorAll(".js-fmt");
+  btns.forEach(b => b.disabled = true);
+  const ctl = new AbortController();
+  prog.start(t("processing_contact_server"), ()=> ctl.abort());
+
+  try{
+    const res = await downloadYoutube(item.url, format, ctl.signal);
+    const title = item.title || res.title;
+    prog.text(t("processing_downloading_file"));
+    const status = await saveFileFromUrl(res.downloadUrl, uniqueFileName({ title, ext: res.ext, isVideo: res.isVideo }), progressReporter(prog), ctl.signal);
+
+    item.downloadUrl = res.downloadUrl;
+    item.isVideo = res.isVideo;
+    item.ext = res.ext;
+    setPlayable(card, true);
+
+    if(status === "downloaded"){
+      prog.done(true, t("processing_saved"));
+      showToast(t("toast_download_success", format));
+    } else {
+      prog.done(true, t("processing_opened_only"));
+      showToast(t("toast_opened_only"));
+    }
+    addToHistory({ title, caption: item.channel, source: "YOUTUBE", format, downloadUrl: res.downloadUrl, isVideo: res.isVideo, ext: res.ext, thumbnail: item.thumbnail });
+  }catch(err){
+    if(isCancel(err)){
+      prog.done(false, t("processing_cancelled"));
+      showToast(t("toast_cancelled"));
+    } else {
+      prog.done(false, t("processing_failed_with", err.message));
+      showToast(t("toast_download_failed", err.message));
+    }
+  }finally{
+    btns.forEach(b => b.disabled = false);
+  }
+}
+
+const linkInput       = $("#linkInput");
+const linkStatus      = $("#linkStatus");
+const previewCard     = $("#previewCard");
+const previewThumbBox = $("#previewThumbBox");
+const previewSource   = $("#previewSource");
+const previewTitle    = $("#previewTitle");
+const previewCaption  = $("#previewCaption");
+const formatChoice    = $("#formatChoice");
+const formatBtns      = formatChoice.querySelectorAll("[data-format]");
+const tiktokBtn       = $("#tiktokDownloadBtn");
+const previewProg     = makeProgress($("#previewProgress"));
+
+let previewItem = null;
+let previewThumbUrl = null;
+let previewToken = 0;
+let previewLoading = null;
+let previewTitlePromise = Promise.resolve("");
+
+function setLinkStatus(kind, text){
+  if(!kind){ linkStatus.className = "form-text mb-3"; linkStatus.textContent = ""; return; }
+  const ok = kind === "valid";
+  linkStatus.className = "form-text mb-3 " + (ok ? "text-success" : "text-danger");
+  linkStatus.innerHTML = `<i class="bi bi-${ok ? "check-circle-fill" : "exclamation-circle-fill"} me-1"></i>${esc(text)}`;
+}
+
+function resetPreview(){
+  if(openPlayerCard === previewCard) closePlayer(previewCard);
+  previewCard.classList.add("d-none");
+  formatChoice.classList.add("d-none");
+  tiktokBtn.classList.add("d-none");
+  previewProg.hide();
+  setPlayable(previewCard, false);
+  previewItem = null;
+  previewThumbUrl = null;
+  previewLoading = null;
+  previewTitlePromise = Promise.resolve("");
+}
+
+let debounceHandle = null;
+function handleLinkInput(){
+  clearTimeout(debounceHandle);
+  const typed = linkInput.value.trim();
+  previewToken++;
+  resetPreview();
+
+  if(!typed){ setLinkStatus(null); return; }
+
+  const type = detectLinkType(typed);
+  const url  = cleanLink(typed);
+  if(!type || !url){ setLinkStatus("invalid", t("link_invalid")); return; }
+
+  setLinkStatus("valid", type === "youtube" ? t("link_youtube_ok") : t("link_tiktok_ok"));
+  debounceHandle = setTimeout(()=>{ previewLoading = loadLinkPreview(type, url); }, CONFIG.PREVIEW_DEBOUNCE_MS);
+}
+linkInput.addEventListener("input", handleLinkInput);
+
+$("#pasteBtn").addEventListener("click", async ()=>{
+  try{
+    const text = await navigator.clipboard.readText();
+    linkInput.value = text;
+    handleLinkInput();
+  }catch(err){ showToast(t("toast_clipboard_fail")); }
+});
+
+async function loadLinkPreview(type, url){
+  const myToken = ++previewToken;
+  previewCard.classList.remove("d-none");
+  previewSource.textContent = type === "youtube" ? "YOUTUBE" : "TIKTOK";
+  previewTitle.textContent = t("loading_info");
+  previewCaption.textContent = "";
+  loadThumb(previewThumbBox, []);
+
+  if(type === "youtube"){
+    const vid = extractYouTubeId(url);
+    if(vid){
+      previewThumbUrl = CONFIG.THUMB.YT_HIGH(vid);
+      loadThumb(previewThumbBox, [CONFIG.THUMB.YT_HIGH(vid), CONFIG.THUMB.YT_MEDIUM(vid)]);
+    }
+    formatChoice.classList.remove("d-none");
+    previewTitlePromise = fetchYoutubeTitle(url);
+    previewTitlePromise.then(realTitle => {
+      if(myToken !== previewToken || !realTitle) return;
+      previewTitle.textContent = realTitle;
+    });
+    try{
+      const res = await downloadYoutube(url, "MP3");
+      if(myToken !== previewToken) return;
+      const realTitle = await previewTitlePromise;
+      const title = realTitle || (looksRandomName(res.title) ? "" : res.title) || t("untitled");
+      previewItem = { title, caption: "", downloadUrl: res.downloadUrl, isVideo: false, ext: res.ext };
+      previewTitle.textContent = title;
+      previewCaption.textContent = "-";
+      setPlayable(previewCard, true);
+    }catch(err){
+      if(myToken !== previewToken) return;
+      if(previewTitle.textContent === t("loading_info")) previewTitle.textContent = t("processing_failed_title");
+      previewCaption.textContent = err.message;
+      showToast(t("toast_info_failed", err.message));
+    }
+  } else {
+    tiktokBtn.classList.remove("d-none");
+    try{
+      const res = await downloadTiktok(url);
+      if(myToken !== previewToken) return;
+      previewItem = { title: res.title, caption: res.caption, downloadUrl: res.downloadUrl, isVideo: true, ext: res.ext };
+      previewThumbUrl = res.thumbnail || null;
+      if(res.thumbnail) loadThumb(previewThumbBox, [res.thumbnail]);
+      previewTitle.textContent = res.title;
+      previewCaption.textContent = res.caption || "-";
+      setPlayable(previewCard, true);
+      tiktokBtn.classList.remove("d-none");
+    }catch(err){
+      if(myToken !== previewToken) return;
+      tiktokBtn.classList.add("d-none");
+      previewTitle.textContent = t("processing_failed_title");
+      previewCaption.textContent = err.message;
+      showToast(t("toast_info_failed", err.message));
+    }
+  }
+}
+
+previewThumbBox.querySelector(".thumb-play").addEventListener("click", ()=>{
+  if(!previewItem){ showToast(t("toast_play_first_download")); return; }
+  togglePlay(previewCard, previewItem);
+});
+
+function setPreviewBusy(busy){
+  formatBtns.forEach(b => b.disabled = busy);
+  tiktokBtn.disabled = busy;
+}
+
+formatBtns.forEach(btn=>{
+  btn.addEventListener("click", ()=> handleYoutubeDownload(btn.dataset.format));
+});
+
+async function handleYoutubeDownload(format){
+  const url = cleanLink(linkInput.value);
+  if(!url) return;
+  setPreviewBusy(true);
+  const ctl = new AbortController();
+  previewProg.start(t("processing_contact_server"), ()=> ctl.abort());
+
+  try{
+    if(format === "MP3" && !previewItem && previewLoading) await previewLoading;
+    throwIfAborted(ctl.signal);
+    let res;
+    if(format === "MP3" && previewItem && previewItem.downloadUrl){
+      res = { title: previewItem.title, downloadUrl: previewItem.downloadUrl, ext: previewItem.ext, isVideo: false };
+    } else {
+      res = await downloadYoutube(url, format, ctl.signal);
+    }
+    const realTitle = await previewTitlePromise;
+    throwIfAborted(ctl.signal);
+    const title = realTitle || (looksRandomName(res.title) ? "" : res.title) || t("untitled");
+    previewProg.text(t("processing_downloading_file"));
+    const status = await saveFileFromUrl(res.downloadUrl, uniqueFileName({ title, ext: res.ext, isVideo: res.isVideo }), progressReporter(previewProg), ctl.signal);
+
+    previewProg.done(true, status === "opened" ? t("processing_opened_only") : t("processing_saved"));
+    showToast(status === "downloaded" ? t("toast_download_success", format) : t("toast_opened_only"));
+    addToHistory({ title, caption: "", source: "YOUTUBE", format, downloadUrl: res.downloadUrl, isVideo: res.isVideo, ext: res.ext, thumbnail: previewThumbUrl });
+  }catch(err){
+    if(isCancel(err)){
+      previewProg.done(false, t("processing_cancelled"));
+      showToast(t("toast_cancelled"));
+    } else {
+      previewProg.done(false, t("processing_failed_with", err.message));
+      showToast(t("toast_download_failed", err.message));
+    }
+  }finally{
+    setPreviewBusy(false);
+  }
+}
+
+tiktokBtn.addEventListener("click", async ()=>{
+  if(!previewItem && previewLoading){
+    setPreviewBusy(true);
+    previewProg.start(t("processing_contact_server"));
+    await previewLoading;
+    setPreviewBusy(false);
+  }
+  if(!previewItem){ previewProg.hide(); return; }
+  setPreviewBusy(true);
+  const ctl = new AbortController();
+  previewProg.start(t("processing_contact_server"), ()=> ctl.abort());
+
+  try{
+    previewProg.text(t("processing_downloading_file"));
+    const status = await saveFileFromUrl(previewItem.downloadUrl, uniqueFileName({ title: previewItem.title, ext: "mp4", isVideo: true }), progressReporter(previewProg), ctl.signal);
+
+    previewProg.done(true, status === "opened" ? t("processing_opened_only") : t("processing_saved"));
+    showToast(status === "downloaded" ? t("toast_download_success", "MP4") : t("toast_opened_only"));
+    addToHistory({ title: previewItem.title, caption: previewItem.caption, source: "TIKTOK", format: "MP4", downloadUrl: previewItem.downloadUrl, isVideo: true, ext: "mp4", thumbnail: previewThumbUrl });
+  }catch(err){
+    if(isCancel(err)){
+      previewProg.done(false, t("processing_cancelled"));
+      showToast(t("toast_cancelled"));
+    } else {
+      previewProg.done(false, t("processing_failed_with", err.message));
+      showToast(t("toast_download_failed", err.message));
+    }
+  }finally{
+    setPreviewBusy(false);
+  }
+});
+
+function saveHistory(){
+  try{ localStorage.setItem(CONFIG.STORAGE_KEYS.HISTORY, JSON.stringify(state.history)); }
+  catch(e){ console.warn("Gagal simpan riwayat:", e); }
+}
+
+function addToHistory({ title, caption, source, format, downloadUrl, isVideo, ext, thumbnail }){
+  state.history.unshift({
+    id: Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+    title, caption, source, format, downloadUrl, isVideo, ext, thumbnail: thumbnail || null
+  });
+  saveHistory();
+  renderHistory();
+}
+
+function deleteHistoryItem(id){
+  if(openPlayerCard && openPlayerCard.dataset.historyId === id) closePlayer(openPlayerCard);
+  state.history = state.history.filter(h => h.id !== id);
+  saveHistory();
+  renderHistory();
+}
+
+function historyExpiry(entry){
+  const m = /[?&]expire=(\d{9,11})(?:&|$)/.exec(entry.downloadUrl || "");
+  if(m) return Number(m[1]) * 1000;
+  const born = parseInt(entry.id, 10);
+  if(isNaN(born)) return Infinity;
+  return born + CONFIG.HISTORY_TTL_HOURS * 3600 * 1000;
+}
+
+function pruneHistory(){
+  const now = Date.now();
+  const keep = state.history.filter(h => historyExpiry(h) > now);
+  if(keep.length === state.history.length) return false;
+  state.history = keep;
+  saveHistory();
+  return true;
+}
+
+function autoCleanHistory(){
+  if(openPlayerCard && openPlayerCard.dataset.historyId) return;
+  if(pruneHistory()) renderHistory();
+}
+
+function renderHistory(){
+  const list = $("#historyList");
+  if(openPlayerCard && openPlayerCard.dataset.historyId) closePlayer(openPlayerCard);
+  list.innerHTML = "";
+  if(state.history.length === 0){
+    list.innerHTML = `<div class="text-center text-body-secondary small py-4">${t("history_empty")}</div>`;
+    return;
+  }
+  state.history.forEach(entry => list.appendChild(buildHistoryCard(entry)));
+}
+
+function buildHistoryCard(entry){
+  const card = document.createElement("div");
+  card.className = "card hist-card border-0 shadow-sm";
+  card.dataset.historyId = entry.id;
+  card.innerHTML = `
+    <div class="card-body p-2">
+      <div class="d-flex align-items-center gap-2">
+        <div class="ratio ratio-16x9 hist-thumb">
+          <div class="thumb-inner js-thumb is-playable">
+            <img class="d-none" alt="" referrerpolicy="no-referrer">
+            <div class="thumb-fallback"><i class="bi ${entry.isVideo ? "bi-film" : "bi-music-note-beamed"}"></i></div>
+            <button type="button" class="thumb-play" data-i18n-aria="aria_play">
+              <i class="bi bi-play-fill js-play-icon"></i>
+            </button>
+          </div>
+        </div>
+        <div class="flex-grow-1" style="min-width:0">
+          <div class="small fw-semibold line-clamp-2">${esc(entry.title)}</div>
+          ${entry.caption ? `<div class="small text-body-secondary text-truncate">${esc(entry.caption)}</div>` : ""}
+          <div class="d-flex flex-wrap gap-1 mt-1">
+            <span class="badge bg-body-secondary text-body-secondary">${esc(entry.source)}</span>
+            <span class="badge bg-info-subtle text-info-emphasis">${esc(entry.format)}</span>
+          </div>
+          <div class="small fw-semibold text-accent js-playing-tag d-none mt-1">
+            <i class="bi bi-soundwave me-1"></i><span data-i18n="playing_tag"></span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-danger flex-shrink-0 js-del" data-i18n-aria="aria_delete">
+          <i class="bi bi-trash3"></i>
+        </button>
+      </div>
+      <div class="player-block mt-2 d-none"></div>
+    </div>`;
+
+  loadThumb(card.querySelector(".js-thumb"), entry.thumbnail ? [entry.thumbnail] : []);
+  card.querySelector(".thumb-play").addEventListener("click", ()=> togglePlay(card, entry));
+  card.querySelector(".js-del").addEventListener("click", ()=>{
+    deleteHistoryItem(entry.id);
+    showToast(t("toast_deleted"));
+  });
+  applyI18n(card);
+  return card;
+}
+
+const modalBahasa = $("#modalBahasa");
+modalBahasa.addEventListener("show.bs.modal", ()=>{
+  const radio = document.querySelector(`input[name="lang"][value="${state.lang}"]`);
+  if(radio) radio.checked = true;
+});
+$("#saveLang").addEventListener("click", ()=>{
+  const checked = document.querySelector('input[name="lang"]:checked');
+  if(!checked) return;
+  const picked = checked.value;
+  state.lang = picked;
+  state.langCode = LANG_CODE[picked] || "id";
+  storeSet(CONFIG.STORAGE_KEYS.LANG, picked);
+  applyLanguage();
+  bootstrap.Modal.getOrCreateInstance(modalBahasa).hide();
+  showToast(t("toast_lang_saved", picked));
+});
+
+function updateOnlineStatus(){
+  const dot = $("#statusDot");
+  const online = navigator.onLine !== false;
+  const label = t(online ? "status_online" : "status_offline");
+  dot.classList.toggle("offline", !online);
+  dot.title = label;
+  dot.setAttribute("aria-label", label);
+}
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
+
+["gesturestart", "gesturechange", "gestureend"].forEach(ev =>
+  document.addEventListener(ev, e => e.preventDefault(), { passive:false })
+);
+document.addEventListener("touchmove", e => { if(e.touches.length > 1) e.preventDefault(); }, { passive:false });
+document.addEventListener("wheel", e => { if(e.ctrlKey) e.preventDefault(); }, { passive:false });
+document.addEventListener("keydown", e => {
+  if((e.ctrlKey || e.metaKey) && ["+", "-", "=", "0"].includes(e.key)) e.preventDefault();
+});
+
+/* ===== Bagikan (YouTube/TikTok -> Bagikan -> pilih aplikasi ini) =====
+   Teks bagikan dari YouTube biasanya "Judul https://youtu.be/xxxx?si=..." — link-nya diambil otomatis,
+   lalu halaman Download langsung nampilin thumbnail + judul + tombol MP3/MP4.
+
+   Jalur masuk yang didukung oleh file ini:
+   - window.gxReceiveShare("teks")        -> dipanggil native Android lewat evaluateJavascript
+   - ?url=... / ?text=... / ?title=...    -> Web Share Target (PWA) atau intent yang ngebuka halaman dengan query
+
+   Biar app APK muncul di menu Bagikan, sisi native yang harus nerima intent (HTML nggak bisa sendiri):
+   1) AndroidManifest.xml, di dalam <activity> utama:
+        <intent-filter>
+          <action android:name="android.intent.action.SEND"/>
+          <category android:name="android.intent.category.DEFAULT"/>
+          <data android:mimeType="text/plain"/>
+        </intent-filter>
+   2) MainActivity (Java), di onCreate (setelah halaman selesai dimuat) dan onNewIntent:
+        String s = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (s != null) webView.evaluateJavascript("window.gxReceiveShare(" + JSONObject.quote(s) + ")", null);
+   3) PWA/hosting: di manifest.json tambah
+        "share_target": { "action": "./", "method": "GET", "params": { "title": "title", "text": "text", "url": "url" } }
+*/
+function extractSharedUrl(raw){
+  const m = String(raw == null ? "" : raw).slice(0, 4000).match(/https?:\/\/[^\s<>"'`]+/i);
+  return m ? m[0].replace(/[)\].,;!?]+$/, "") : "";
+}
+
+function receiveShare(raw){
+  const link = cleanLink(extractSharedUrl(raw) || raw);
+  if(!link){ showToast(t("toast_share_invalid")); return false; }
+  goToPage("download");
+  linkInput.value = link;
+  handleLinkInput();
+  showToast(t("toast_share_received"));
+  return true;
+}
+
+function readShareFromUrl(){
+  try{
+    const q = new URLSearchParams(location.search);
+    const parts = [q.get("url"), q.get("text"), q.get("title")].filter(Boolean);
+    if(parts.length === 0) return;
+    history.replaceState(history.state, "", location.pathname + location.hash);
+    receiveShare(parts.join(" "));
+  }catch(e){}
+}
+
+(function init(){
+  $("#versionTag").textContent = CONFIG.APP_NAME + " — " + CONFIG.VERSION;
+  const wa = safeHttpUrl(CONFIG.WA_LINK);
+  if(wa){
+    const link = $("#waLink");
+    link.href = wa;
+    link.hidden = false;
+  }
+  const sw = safeHttpUrl(CONFIG.SAWERIA_LINK);
+  if(sw) $("#saweriaLink").href = sw;
+  pruneHistory();
+  applyLanguage();
+  window.gxReceiveShare = receiveShare;
+  (window.__gxShareQueue || []).splice(0).forEach(receiveShare);
+  readShareFromUrl();
+  setInterval(autoCleanHistory, 60000);
+  document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) autoCleanHistory(); });
+})();
+</script>
+</body>
+</html>
